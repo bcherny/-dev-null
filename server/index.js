@@ -43,7 +43,14 @@ express()
       // Successful authentication, redirect home.
       res.redirect('/')
     })
-  .get('/orgs', function (req, res) {
+  .get('/user', function (req, res) {
+    if (req.user) {
+      res.status(200).send(req.user)
+    } else {
+      res.status(401).send()
+    }
+  })
+  .get('/user/orgs', function (req, res) {
     if (req.user) {
       res.header('Content-Type', 'application/json')
       https.get({
@@ -55,13 +62,6 @@ express()
       }, function (_res) {
         _res.pipe(res)
       })
-    } else {
-      res.status(401).send()
-    }
-  })
-  .get('/user', function (req, res) {
-    if (req.user) {
-      res.status(200).send(req.user)
     } else {
       res.status(401).send()
     }

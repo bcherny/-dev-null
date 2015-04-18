@@ -1,7 +1,7 @@
-var ____Class4L=React.Component;for(var ____Class4L____Key in ____Class4L){if(____Class4L.hasOwnProperty(____Class4L____Key)){App[____Class4L____Key]=____Class4L[____Class4L____Key];}}var ____SuperProtoOf____Class4L=____Class4L===null?null:____Class4L.prototype;App.prototype=Object.create(____SuperProtoOf____Class4L);App.prototype.constructor=App;App.__superConstructor__=____Class4L;
+var ____Class4O=React.Component;for(var ____Class4O____Key in ____Class4O){if(____Class4O.hasOwnProperty(____Class4O____Key)){App[____Class4O____Key]=____Class4O[____Class4O____Key];}}var ____SuperProtoOf____Class4O=____Class4O===null?null:____Class4O.prototype;App.prototype=Object.create(____SuperProtoOf____Class4O);App.prototype.constructor=App;App.__superConstructor__=____Class4O;
 
   function App(props) {"use strict";
-    ____Class4L.call(this,props)
+    ____Class4O.call(this,props)
     this.state = {}
   }
 
@@ -17,10 +17,10 @@ var ____Class4L=React.Component;for(var ____Class4L____Key in ____Class4L){if(__
 
 
 
-var ____Class4M=React.Component;for(var ____Class4M____Key in ____Class4M){if(____Class4M.hasOwnProperty(____Class4M____Key)){GithubLogin[____Class4M____Key]=____Class4M[____Class4M____Key];}}var ____SuperProtoOf____Class4M=____Class4M===null?null:____Class4M.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class4M);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class4M;
+var ____Class4P=React.Component;for(var ____Class4P____Key in ____Class4P){if(____Class4P.hasOwnProperty(____Class4P____Key)){GithubLogin[____Class4P____Key]=____Class4P[____Class4P____Key];}}var ____SuperProtoOf____Class4P=____Class4P===null?null:____Class4P.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class4P);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class4P;
 
   function GithubLogin(props) {"use strict";
-    ____Class4M.call(this,props)
+    ____Class4P.call(this,props)
     this.state = {
       didCheckLogin: false
     }
@@ -31,7 +31,7 @@ var ____Class4M=React.Component;for(var ____Class4M____Key in ____Class4M){if(__
   }});
 
   Object.defineProperty(GithubLogin.prototype,"getOrgs",{writable:true,configurable:true,value:function() {"use strict";
-    return $.get('/orgs')
+    return $.get('/user/orgs')
   }});
 
   Object.defineProperty(GithubLogin.prototype,"login",{writable:true,configurable:true,value:function() {"use strict";
@@ -75,10 +75,10 @@ var ____Class4M=React.Component;for(var ____Class4M____Key in ____Class4M){if(__
 
 
 
-var ____Class4N=React.Component;for(var ____Class4N____Key in ____Class4N){if(____Class4N.hasOwnProperty(____Class4N____Key)){QueryBar[____Class4N____Key]=____Class4N[____Class4N____Key];}}var ____SuperProtoOf____Class4N=____Class4N===null?null:____Class4N.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class4N);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class4N;
+var ____Class4Q=React.Component;for(var ____Class4Q____Key in ____Class4Q){if(____Class4Q.hasOwnProperty(____Class4Q____Key)){QueryBar[____Class4Q____Key]=____Class4Q[____Class4Q____Key];}}var ____SuperProtoOf____Class4Q=____Class4Q===null?null:____Class4Q.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class4Q);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class4Q;
 
   function QueryBar(props) {"use strict";
-    ____Class4N.call(this,props)
+    ____Class4Q.call(this,props)
     this.state = {}
   }
 

@@ -31,7 +31,7 @@ class GithubLogin extends React.Component {
   }
 
   getOrgs() {
-    return $.get('/orgs')
+    return $.get('/user/orgs')
   }
 
   login() {
