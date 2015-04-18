@@ -1,7 +1,7 @@
-var ____Class2Y=React.Component;for(var ____Class2Y____Key in ____Class2Y){if(____Class2Y.hasOwnProperty(____Class2Y____Key)){App[____Class2Y____Key]=____Class2Y[____Class2Y____Key];}}var ____SuperProtoOf____Class2Y=____Class2Y===null?null:____Class2Y.prototype;App.prototype=Object.create(____SuperProtoOf____Class2Y);App.prototype.constructor=App;App.__superConstructor__=____Class2Y;
+var ____Class34=React.Component;for(var ____Class34____Key in ____Class34){if(____Class34.hasOwnProperty(____Class34____Key)){App[____Class34____Key]=____Class34[____Class34____Key];}}var ____SuperProtoOf____Class34=____Class34===null?null:____Class34.prototype;App.prototype=Object.create(____SuperProtoOf____Class34);App.prototype.constructor=App;App.__superConstructor__=____Class34;
 
   function App(props) {"use strict";
-    ____Class2Y.call(this,props)
+    ____Class34.call(this,props)
     this.state = {}
   }
 
@@ -17,10 +17,10 @@ var ____Class2Y=React.Component;for(var ____Class2Y____Key in ____Class2Y){if(__
 
 
 
-var ____Class2Z=React.Component;for(var ____Class2Z____Key in ____Class2Z){if(____Class2Z.hasOwnProperty(____Class2Z____Key)){GithubLogin[____Class2Z____Key]=____Class2Z[____Class2Z____Key];}}var ____SuperProtoOf____Class2Z=____Class2Z===null?null:____Class2Z.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class2Z);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class2Z;
+var ____Class35=React.Component;for(var ____Class35____Key in ____Class35){if(____Class35.hasOwnProperty(____Class35____Key)){GithubLogin[____Class35____Key]=____Class35[____Class35____Key];}}var ____SuperProtoOf____Class35=____Class35===null?null:____Class35.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class35);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class35;
 
   function GithubLogin(props) {"use strict";
-    ____Class2Z.call(this,props)
+    ____Class35.call(this,props)
     this.state = {
       githubOauthClientId: '5dda5e640b390bc40468',
       githubOauthState: Math.random()*100000000000000000
@@ -29,9 +29,11 @@ var ____Class2Z=React.Component;for(var ____Class2Z____Key in ____Class2Z){if(__
 
   Object.defineProperty(GithubLogin.prototype,"login",{writable:true,configurable:true,value:function() {"use strict";
 
-    const scope = ['user:email', 'read:org'].join(',')
+    $.get('/login').then(console.log)
 
-    window.location.href = ("https://github.com/login/oauth/authorize?client_id=" +  this.state.githubOauthClientId + "&state=" +  this.state.githubOauthState + "&scope=" +  scope)
+    // const scope = ['user:email', 'read:org'].join(',')
+
+    // window.location.href = `https://github.com/login/oauth/authorize?client_id=${ this.state.githubOauthClientId }&state=${ this.state.githubOauthState }&scope=${ scope }`
 
   }});
 
@@ -47,19 +49,19 @@ var ____Class2Z=React.Component;for(var ____Class2Z____Key in ____Class2Z){if(__
 
     console.log(code, state, this.state.githubOauthState)
 
-    if (code && state && !this.state.token) {
+    // if (code && state && !this.state.token) {
 
-      // if (state != this.state.githubOauthState) {
-      //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
-      // }
+    //   // if (state != this.state.githubOauthState) {
+    //   //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
+    //   // }
 
-      $
-      .post(("https://github.com/login/oauth/access_token/client_id=" +  this.state.githubOauthClientId + "&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=" +  code))
-      .then(function(data)  {
-       console.log(data.token)
-      })
+    //   $
+    //   .post(`https://github.com/login/oauth/access_token/client_id=${ this.state.githubOauthClientId }&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=${ code }`)
+    //   .then((data) => {
+    //    console.log(data.token)
+    //   })
 
-    }
+    // }
 
     var githubLogin = code
       ? React.createElement("div", null, "logged in!")
@@ -72,10 +74,10 @@ var ____Class2Z=React.Component;for(var ____Class2Z____Key in ____Class2Z){if(__
 
 
 
-var ____Class30=React.Component;for(var ____Class30____Key in ____Class30){if(____Class30.hasOwnProperty(____Class30____Key)){QueryBar[____Class30____Key]=____Class30[____Class30____Key];}}var ____SuperProtoOf____Class30=____Class30===null?null:____Class30.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class30);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class30;
+var ____Class36=React.Component;for(var ____Class36____Key in ____Class36){if(____Class36.hasOwnProperty(____Class36____Key)){QueryBar[____Class36____Key]=____Class36[____Class36____Key];}}var ____SuperProtoOf____Class36=____Class36===null?null:____Class36.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class36);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class36;
 
   function QueryBar(props) {"use strict";
-    ____Class30.call(this,props)
+    ____Class36.call(this,props)
     this.state = {}
   }
 

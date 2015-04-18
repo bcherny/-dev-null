@@ -29,9 +29,11 @@ class GithubLogin extends React.Component {
 
   login() {
 
-    const scope = ['user:email', 'read:org'].join(',')
+    $.get('/login').then(console.log)
 
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${ this.state.githubOauthClientId }&state=${ this.state.githubOauthState }&scope=${ scope }`
+    // const scope = ['user:email', 'read:org'].join(',')
+
+    // window.location.href = `https://github.com/login/oauth/authorize?client_id=${ this.state.githubOauthClientId }&state=${ this.state.githubOauthState }&scope=${ scope }`
 
   }
 
@@ -47,19 +49,19 @@ class GithubLogin extends React.Component {
 
     console.log(code, state, this.state.githubOauthState)
 
-    if (code && state && !this.state.token) {
+    // if (code && state && !this.state.token) {
 
-      // if (state != this.state.githubOauthState) {
-      //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
-      // }
+    //   // if (state != this.state.githubOauthState) {
+    //   //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
+    //   // }
 
-      $
-      .post(`https://github.com/login/oauth/access_token/client_id=${ this.state.githubOauthClientId }&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=${ code }`)
-      .then((data) => {
-       console.log(data.token)
-      })
+    //   $
+    //   .post(`https://github.com/login/oauth/access_token/client_id=${ this.state.githubOauthClientId }&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=${ code }`)
+    //   .then((data) => {
+    //    console.log(data.token)
+    //   })
 
-    }
+    // }
 
     var githubLogin = code
       ? <div>logged in!</div>
