@@ -1,7 +1,7 @@
-var ____Class34=React.Component;for(var ____Class34____Key in ____Class34){if(____Class34.hasOwnProperty(____Class34____Key)){App[____Class34____Key]=____Class34[____Class34____Key];}}var ____SuperProtoOf____Class34=____Class34===null?null:____Class34.prototype;App.prototype=Object.create(____SuperProtoOf____Class34);App.prototype.constructor=App;App.__superConstructor__=____Class34;
+var ____Class3Z=React.Component;for(var ____Class3Z____Key in ____Class3Z){if(____Class3Z.hasOwnProperty(____Class3Z____Key)){App[____Class3Z____Key]=____Class3Z[____Class3Z____Key];}}var ____SuperProtoOf____Class3Z=____Class3Z===null?null:____Class3Z.prototype;App.prototype=Object.create(____SuperProtoOf____Class3Z);App.prototype.constructor=App;App.__superConstructor__=____Class3Z;
 
   function App(props) {"use strict";
-    ____Class34.call(this,props)
+    ____Class3Z.call(this,props)
     this.state = {}
   }
 
@@ -17,19 +17,27 @@ var ____Class34=React.Component;for(var ____Class34____Key in ____Class34){if(__
 
 
 
-var ____Class35=React.Component;for(var ____Class35____Key in ____Class35){if(____Class35.hasOwnProperty(____Class35____Key)){GithubLogin[____Class35____Key]=____Class35[____Class35____Key];}}var ____SuperProtoOf____Class35=____Class35===null?null:____Class35.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class35);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class35;
+var ____Class40=React.Component;for(var ____Class40____Key in ____Class40){if(____Class40.hasOwnProperty(____Class40____Key)){GithubLogin[____Class40____Key]=____Class40[____Class40____Key];}}var ____SuperProtoOf____Class40=____Class40===null?null:____Class40.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class40);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class40;
 
   function GithubLogin(props) {"use strict";
-    ____Class35.call(this,props)
+    ____Class40.call(this,props)
     this.state = {
       githubOauthClientId: '5dda5e640b390bc40468',
-      githubOauthState: Math.random()*100000000000000000
+      githubOauthState: Math.random()*100000000000000000,
+      didCheckLogin: false
     }
   }
 
+  // TODO: do this better
+  Object.defineProperty(GithubLogin.prototype,"user",{writable:true,configurable:true,value:function() {"use strict";
+    return $.get('/user')
+  }});
+
   Object.defineProperty(GithubLogin.prototype,"login",{writable:true,configurable:true,value:function() {"use strict";
 
-    $.get('/login').then(console.log)
+    window.location.pathname = '/login'
+
+    // $.get('/login').then(console.log)
 
     // const scope = ['user:email', 'read:org'].join(',')
 
@@ -37,35 +45,27 @@ var ____Class35=React.Component;for(var ____Class35____Key in ____Class35){if(__
 
   }});
 
+  Object.defineProperty(GithubLogin.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {"use strict";
+
+    this
+      .user()
+      .done(function($GithubLogin_)  {return this.setState({ user: $GithubLogin_ });}.bind(this))
+      .fail(function($GithubLogin_)  {return this.setState({ user: null });}.bind(this))
+      .always(function($GithubLogin_)  {return this.setState({ didCheckLogin: true });}.bind(this))
+
+  }});
+
   Object.defineProperty(GithubLogin.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 
-    var code = null,
-        state = null
+    if (!this.state.didCheckLogin) {
+      return React.createElement("div", null, "checking...")
+    }
 
-    try {
-      code = window.location.search.match(/code=([^&]+)/)[1]
-      state = window.location.search.match(/state=([^&]+)/)[1]
-    } catch (e){}
+    console.log('user', this.state.user)
 
-    console.log(code, state, this.state.githubOauthState)
-
-    // if (code && state && !this.state.token) {
-
-    //   // if (state != this.state.githubOauthState) {
-    //   //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
-    //   // }
-
-    //   $
-    //   .post(`https://github.com/login/oauth/access_token/client_id=${ this.state.githubOauthClientId }&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=${ code }`)
-    //   .then((data) => {
-    //    console.log(data.token)
-    //   })
-
-    // }
-
-    var githubLogin = code
+    var githubLogin = this.state.user
       ? React.createElement("div", null, "logged in!")
-      : React.createElement("a", {href: "#", onClick: this.login.bind(this)}, "Sign into Github")
+      : React.createElement("a", {onClick: this.login.bind(this)}, "Sign into Github")
 
     return (
       githubLogin
@@ -74,10 +74,10 @@ var ____Class35=React.Component;for(var ____Class35____Key in ____Class35){if(__
 
 
 
-var ____Class36=React.Component;for(var ____Class36____Key in ____Class36){if(____Class36.hasOwnProperty(____Class36____Key)){QueryBar[____Class36____Key]=____Class36[____Class36____Key];}}var ____SuperProtoOf____Class36=____Class36===null?null:____Class36.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class36);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class36;
+var ____Class41=React.Component;for(var ____Class41____Key in ____Class41){if(____Class41.hasOwnProperty(____Class41____Key)){QueryBar[____Class41____Key]=____Class41[____Class41____Key];}}var ____SuperProtoOf____Class41=____Class41===null?null:____Class41.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class41);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class41;
 
   function QueryBar(props) {"use strict";
-    ____Class36.call(this,props)
+    ____Class41.call(this,props)
     this.state = {}
   }
 

@@ -23,13 +23,21 @@ class GithubLogin extends React.Component {
     super(props)
     this.state = {
       githubOauthClientId: '5dda5e640b390bc40468',
-      githubOauthState: Math.random()*100000000000000000
+      githubOauthState: Math.random()*100000000000000000,
+      didCheckLogin: false
     }
+  }
+
+  // TODO: do this better
+  user() {
+    return $.get('/user')
   }
 
   login() {
 
-    $.get('/login').then(console.log)
+    window.location.pathname = '/login'
+
+    // $.get('/login').then(console.log)
 
     // const scope = ['user:email', 'read:org'].join(',')
 
@@ -37,35 +45,27 @@ class GithubLogin extends React.Component {
 
   }
 
+  componentDidMount() {
+
+    this
+      .user()
+      .done(_ => this.setState({ user: _ }))
+      .fail(_ => this.setState({ user: null }))
+      .always(_ => this.setState({ didCheckLogin: true }))
+
+  }
+
   render() {
 
-    var code = null,
-        state = null
+    if (!this.state.didCheckLogin) {
+      return <div>checking...</div>
+    }
 
-    try {
-      code = window.location.search.match(/code=([^&]+)/)[1]
-      state = window.location.search.match(/state=([^&]+)/)[1]
-    } catch (e){}
+    console.log('user', this.state.user)
 
-    console.log(code, state, this.state.githubOauthState)
-
-    // if (code && state && !this.state.token) {
-
-    //   // if (state != this.state.githubOauthState) {
-    //   //   throw new Error ('states don\'t match, possible XSF attack. aborting!')
-    //   // }
-
-    //   $
-    //   .post(`https://github.com/login/oauth/access_token/client_id=${ this.state.githubOauthClientId }&client_secret=af9b23df713de6a5cfc819a92e0ae6f799a800b3&code=${ code }`)
-    //   .then((data) => {
-    //    console.log(data.token)
-    //   })
-
-    // }
-
-    var githubLogin = code
+    var githubLogin = this.state.user
       ? <div>logged in!</div>
-      : <a href="#" onClick={this.login.bind(this)}>Sign into Github</a>
+      : <a onClick={this.login.bind(this)}>Sign into Github</a>
 
     return (
       githubLogin

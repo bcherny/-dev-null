@@ -1,29 +1,54 @@
 const PORT = 3000
 
 const
+  cookieParser = require('cookie-parser'),
   express = require('express'),
   passport = require('passport'),
+  session = require('express-session'),
   GitHubStrategy = require('passport-github').Strategy
 
+// configure passport
+// @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
 passport.use(
   new GitHubStrategy({
     clientID: process.env.client_id || '5dda5e640b390bc40468',
     clientSecret: process.env.client_secret || 'af9b23df713de6a5cfc819a92e0ae6f799a800b3',
-    callbackURL: 'http://localhost/auth/github/callback'
+    callbackURL: 'http://localhost:3000/login/callback'
   }, function (accessToken, refreshToken, profile, done) {
-    return done(profile)
+    console.info('got profile', profile)
+    return done(null, profile)
   }
 ))
 
-express()
-.use(express.static(__dirname + '/../www/'))
-.get('/login', passport.authenticate('github'))
-.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  })
-.listen(PORT, function () {
-  console.info('HTTP server listening on', PORT, '...')
+passport.serializeUser(function(user, done) {
+  done(null, user)
 })
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj)
+})
+
+// configure express
+express()
+  .use(cookieParser())
+  .use(session({ secret: 'keyboard cat' }))
+  .use(passport.initialize())
+  .use(passport.session())
+  .use(express.static(__dirname + '/../www/'))
+  .get('/login', passport.authenticate('github'))
+  .get('/login/callback', 
+    passport.authenticate('github', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/')
+    })
+  .get('/user', function (req, res) {
+    if (req.user) {
+      res.status(200).send(req.user)
+    } else {
+      res.status(401).send()
+    }
+  })
+  .listen(PORT, function () {
+    console.info('HTTP server listening on', PORT, '...')
+  })
