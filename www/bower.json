@@ -1,0 +1,20 @@
+{
+  "name": "ack.mo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/pathikrit/-dev-null",
+  "authors": [
+    "Boris Cherny <bcherny@gmail.com>"
+  ],
+  "description": "Shared CURL/DB query client",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.1"
+  }
+}
