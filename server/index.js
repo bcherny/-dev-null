@@ -3,6 +3,7 @@ const PORT = 3000
 const
   cookieParser = require('cookie-parser'),
   express = require('express'),
+  https = require('https'),
   passport = require('passport'),
   session = require('express-session'),
   GitHubStrategy = require('passport-github').Strategy
@@ -42,6 +43,22 @@ express()
       // Successful authentication, redirect home.
       res.redirect('/')
     })
+  .get('/orgs', function (req, res) {
+    if (req.user) {
+      res.header('Content-Type', 'application/json')
+      https.get({
+        headers: {
+          'User-Agent': 'Kittens' // this github route needs a User Agent
+        },
+        hostname: 'api.github.com',
+        path: '/users/' + req.user.username + '/orgs'
+      }, function (_res) {
+        _res.pipe(res)
+      })
+    } else {
+      res.status(401).send()
+    }
+  })
   .get('/user', function (req, res) {
     if (req.user) {
       res.status(200).send(req.user)

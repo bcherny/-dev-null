@@ -3,7 +3,9 @@
 ## building the frontend
 
 ```
-./www/watch.sh
+cd www
+bower i
+./watch.sh
 ```
 
 ## starting the server
