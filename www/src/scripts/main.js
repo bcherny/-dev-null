@@ -28,7 +28,6 @@ class GithubLogin extends React.Component {
     }
   }
 
-  // TODO: do this better
   user() {
     return $.get('/user')
   }
@@ -37,16 +36,11 @@ class GithubLogin extends React.Component {
 
     window.location.pathname = '/login'
 
-    // $.get('/login').then(console.log)
-
-    // const scope = ['user:email', 'read:org'].join(',')
-
-    // window.location.href = `https://github.com/login/oauth/authorize?client_id=${ this.state.githubOauthClientId }&state=${ this.state.githubOauthState }&scope=${ scope }`
-
   }
 
   componentDidMount() {
 
+    // when the component loads, check if the user is signed in
     this
       .user()
       .done(_ => this.setState({ user: _ }))
@@ -61,7 +55,7 @@ class GithubLogin extends React.Component {
       return <div>checking...</div>
     }
 
-    console.log('user', this.state.user)
+    console.info('got user', this.state.user)
 
     var githubLogin = this.state.user
       ? <div>logged in!</div>
