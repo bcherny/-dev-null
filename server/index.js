@@ -51,6 +51,7 @@ express()
     }
   })
   .get('/user/orgs', function (req, res) {
+    // TODO: this request should be authenticated with passport
     if (req.user) {
       res.header('Content-Type', 'application/json')
       https.get({
