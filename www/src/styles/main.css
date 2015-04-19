@@ -7,6 +7,68 @@
 
 body {
   font: 200 14px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-top: 50px; /* leave room for top header */
+}
+
+h1, h2, h3 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.FavList {
+  border-right: 1px solid #eee;
+  position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 38px;
+  width: 200px;
+}
+
+.FavList em,
+.FavList h2,
+.FavList li,
+.FavList small {
+  padding: 10px;
+}
+
+.FavList em,
+.FavList h2,
+.FavList small {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.FavList li {
+  color: #666;
+  font-size: 12px;
+}
+
+.FavList > ul > li {
+  background: #f9f9f9;
+  font-weight: 400;
+  position: relative;
+}
+
+.FavList > ul > li:after {
+  content: "▾";
+  position: absolute;
+    right: 10px;
+    top: 9px;
+}
+
+.FavList em,
+.FavList small {
+  color: #999;
+  display: block;
+  text-align: center;
+}
+
+.GithubLogin {
+  color: #79A0A6;
+  padding: 10px;
+  position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .QueryBar {
@@ -17,4 +79,14 @@ body {
   margin: 10px auto;
   padding: 10px;
   width: 400px;
+}
+
+.TopHeader {
+  background: #315F66;
+  color: #79A0A6;
+  padding: 10px;
+  position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
 }

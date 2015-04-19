@@ -55,7 +55,7 @@ express()
       res.header('Content-Type', 'application/json')
       https.get({
         headers: {
-          'User-Agent': 'Kittens' // this github route needs a User Agent
+          'User-Agent': 'Kittens' // @see https://developer.github.com/v3/#user-agent-required
         },
         hostname: 'api.github.com',
         path: '/users/' + req.user.username + '/orgs'

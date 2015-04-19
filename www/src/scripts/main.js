@@ -2,27 +2,10 @@ class App extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {}
-  }
-
-  render() {
-    return (
-      <div>
-        <GithubLogin></GithubLogin>
-        <QueryBar></QueryBar>
-      </div>
-    )
-  }
-
-
-}
-
-class GithubLogin extends React.Component {
-
-  constructor (props) {
-    super(props)
     this.state = {
-      didCheckLogin: false
+      orgs: null,
+      user: null,
+      isLoggingIn: false
     }
   }
 
@@ -34,11 +17,10 @@ class GithubLogin extends React.Component {
     return $.get('/user/orgs')
   }
 
-  login() {
-    window.location.pathname = '/login'
-  }
-
   componentDidMount() {
+
+    this
+      .setState({ isLoggingIn: true })
 
     this
 
@@ -46,30 +28,80 @@ class GithubLogin extends React.Component {
       .getUser()
       .done(_ => this.setState({ user: _ }))
       .fail(_ => this.setState({ user: null }))
-      .always(_ => this.setState({ didCheckLogin: true }))
+      .always(_ => this.setState({ isLoggingIn: false }))
 
       // then, fetch their github orgs
       .then(_ => this.getOrgs())
       .done(_ => this.setState({ orgs: _ }))
       .fail(_ => this.setState({ orgs: null }))
-      .always(_ => this.setState({ didCheckLogin: true }))
+      .always(_ => this.setState({ isLoggingIn: false }))
 
   }
 
   render() {
+    return (
+      <div>
+        <GithubLogin user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
+        <QueryBar />
+        <FavList orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
+      </div>
+    )
+  }
 
-    if (!this.state.didCheckLogin) {
-      return <div>...</div>
+
+}
+
+class FavList extends React.Component {
+
+  constructor (props) {
+    super(props)
+  }
+
+  render() {
+
+    const items = ['Mine', 'Public']
+      .map(_ => { return { login: _ }}) // damn es6 is weird
+      .concat(this.props.orgs || [])
+      .map(_ => <li>{ _.login }</li>)
+
+    return (
+      <section className="FavList">
+        <h2>Favorites</h2>
+        <ul>{ items }</ul>
+        { this.props.isLoggingIn ? <em>Loading orgs...</em> : <small>Last updated { moment().format('h:ma') }</small> }
+      </section>
+    )
+
+  }
+
+}
+
+class GithubLogin extends React.Component {
+
+  constructor (props) {
+    super(props)
+  }
+
+  login() {
+    window.location.pathname = '/login'
+  }
+
+  render() {
+
+    if (this.props.isLoggingIn) {
+      return <div>Signing in...</div>
     }
 
-    console.info('got user', this.state.user, this.state.orgs)
+    console.info('got user', this.props.user, this.props.orgs)
 
-    var githubLogin = this.state.user
+    var githubLogin = this.props.user
       ? <div>logged in!</div>
       : <a onClick={this.login.bind(this)}>Sign into Github</a>
 
     return (
-      githubLogin
+      <div className="GithubLogin">
+        { githubLogin }
+      </div>
     )
   }
 
@@ -84,7 +116,7 @@ class QueryBar extends React.Component {
 
   render() {
     return (
-      <input className="QueryBar" type="text" />
+      <input className="QueryBar" placeholder="Enter a query..." type="text" />
     )
   }
 
