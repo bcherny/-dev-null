@@ -1,5 +1,10 @@
 # ack.mo (aka. the working title)
 
+## Global deps:
+```
+npm install -g nodemon react-tools
+```
+
 ## building the frontend
 
 ```

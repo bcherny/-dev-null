@@ -2,3 +2,9 @@
 .module-cache
 bower_components
 node_modules
+
+#IntelliJ files
+.idea
+
+#NodeJs:
+npm-debug.log
