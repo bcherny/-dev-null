@@ -1,10 +1,12 @@
 .DS_Store
+
+# Frontend
 .module-cache
 bower_components
-node_modules
 
-#IntelliJ files
+# IntelliJ files
 .idea
 
-#NodeJs:
+# NodeJs:
+node_modules
 npm-debug.log

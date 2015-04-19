@@ -43,9 +43,17 @@ h1, h2, h3 {
   font-size: 12px;
 }
 
+.FavList img {
+  height: 17px;
+  position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
 .FavList > ul > li {
   background: #f9f9f9;
   font-weight: 400;
+  padding-left: 35px;
   position: relative;
 }
 

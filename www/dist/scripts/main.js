@@ -1,7 +1,7 @@
-var ____Class7b=React.Component;for(var ____Class7b____Key in ____Class7b){if(____Class7b.hasOwnProperty(____Class7b____Key)){App[____Class7b____Key]=____Class7b[____Class7b____Key];}}var ____SuperProtoOf____Class7b=____Class7b===null?null:____Class7b.prototype;App.prototype=Object.create(____SuperProtoOf____Class7b);App.prototype.constructor=App;App.__superConstructor__=____Class7b;
+var ____Class7T=React.Component;for(var ____Class7T____Key in ____Class7T){if(____Class7T.hasOwnProperty(____Class7T____Key)){App[____Class7T____Key]=____Class7T[____Class7T____Key];}}var ____SuperProtoOf____Class7T=____Class7T===null?null:____Class7T.prototype;App.prototype=Object.create(____SuperProtoOf____Class7T);App.prototype.constructor=App;App.__superConstructor__=____Class7T;
 
   function App(props) {"use strict";
-    ____Class7b.call(this,props)
+    ____Class7T.call(this,props)
     this.state = {
       orgs: null,
       user: null,
@@ -43,7 +43,7 @@ var ____Class7b=React.Component;for(var ____Class7b____Key in ____Class7b){if(__
       React.createElement("div", null, 
         React.createElement(GithubLogin, {user:  this.state.user, orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn}), 
         React.createElement(QueryBar, null), 
-        React.createElement(FavList, {orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn})
+        React.createElement(FavList, {user:  this.state.user, orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn})
       )
     )
   }});
@@ -51,24 +51,31 @@ var ____Class7b=React.Component;for(var ____Class7b____Key in ____Class7b){if(__
 
 
 
-var ____Class7c=React.Component;for(var ____Class7c____Key in ____Class7c){if(____Class7c.hasOwnProperty(____Class7c____Key)){FavList[____Class7c____Key]=____Class7c[____Class7c____Key];}}var ____SuperProtoOf____Class7c=____Class7c===null?null:____Class7c.prototype;FavList.prototype=Object.create(____SuperProtoOf____Class7c);FavList.prototype.constructor=FavList;FavList.__superConstructor__=____Class7c;
+var ____Class7U=React.Component;for(var ____Class7U____Key in ____Class7U){if(____Class7U.hasOwnProperty(____Class7U____Key)){FavList[____Class7U____Key]=____Class7U[____Class7U____Key];}}var ____SuperProtoOf____Class7U=____Class7U===null?null:____Class7U.prototype;FavList.prototype=Object.create(____SuperProtoOf____Class7U);FavList.prototype.constructor=FavList;FavList.__superConstructor__=____Class7U;
 
   function FavList(props) {"use strict";
-    ____Class7c.call(this,props)
+    ____Class7U.call(this,props)
   }
 
   Object.defineProperty(FavList.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 
-    const items = ['Mine', 'Public']
-      .map(function($FavList_)  { return { login: $FavList_ }}) // damn es6 is weird
+    if (!this.props.user || !this.props.orgs) {
+      return React.createElement("div", null)
+    }
+
+    // "_json" means something to the react transpiler :|
+    const items = [
+      { avatar_url: this.props.user['_json'].avatar_url, login: 'Mine' },
+      { avatar: '', login: 'Public' }
+    ]
       .concat(this.props.orgs || [])
-      .map(function($FavList_)  {return React.createElement("li", null,  $FavList_.login);})
+      .map(function($FavList_)  {return React.createElement("li", null, React.createElement("img", {src:  $FavList_.avatar_url}),  $FavList_.login);})
 
     return (
       React.createElement("section", {className: "FavList"}, 
         React.createElement("h2", null, "Favorites"), 
         React.createElement("ul", null,  items ), 
-         this.props.isLoggingIn ? React.createElement("em", null, "Loading orgs...") : React.createElement("small", null, "Last updated ",  moment().format('h:ma') )
+         this.props.isLoggingIn ? React.createElement("em", null, "Loading orgs...") : React.createElement("small", null, "Last updated ",  moment().format('h:mma') )
       )
     )
 
@@ -76,10 +83,10 @@ var ____Class7c=React.Component;for(var ____Class7c____Key in ____Class7c){if(__
 
 
 
-var ____Class7d=React.Component;for(var ____Class7d____Key in ____Class7d){if(____Class7d.hasOwnProperty(____Class7d____Key)){GithubLogin[____Class7d____Key]=____Class7d[____Class7d____Key];}}var ____SuperProtoOf____Class7d=____Class7d===null?null:____Class7d.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class7d);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class7d;
+var ____Class7V=React.Component;for(var ____Class7V____Key in ____Class7V){if(____Class7V.hasOwnProperty(____Class7V____Key)){GithubLogin[____Class7V____Key]=____Class7V[____Class7V____Key];}}var ____SuperProtoOf____Class7V=____Class7V===null?null:____Class7V.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class7V);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class7V;
 
   function GithubLogin(props) {"use strict";
-    ____Class7d.call(this,props)
+    ____Class7V.call(this,props)
   }
 
   Object.defineProperty(GithubLogin.prototype,"login",{writable:true,configurable:true,value:function() {"use strict";
@@ -107,10 +114,10 @@ var ____Class7d=React.Component;for(var ____Class7d____Key in ____Class7d){if(__
 
 
 
-var ____Class7e=React.Component;for(var ____Class7e____Key in ____Class7e){if(____Class7e.hasOwnProperty(____Class7e____Key)){QueryBar[____Class7e____Key]=____Class7e[____Class7e____Key];}}var ____SuperProtoOf____Class7e=____Class7e===null?null:____Class7e.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class7e);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class7e;
+var ____Class7W=React.Component;for(var ____Class7W____Key in ____Class7W){if(____Class7W.hasOwnProperty(____Class7W____Key)){QueryBar[____Class7W____Key]=____Class7W[____Class7W____Key];}}var ____SuperProtoOf____Class7W=____Class7W===null?null:____Class7W.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class7W);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class7W;
 
   function QueryBar(props) {"use strict";
-    ____Class7e.call(this,props)
+    ____Class7W.call(this,props)
     this.state = {}
   }
 
