@@ -41,7 +41,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <GithubLogin user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
+        <TopHeader user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
         <QueryBar />
         <FavList user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
       </div>
@@ -83,6 +83,48 @@ class FavList extends React.Component {
 
 }
 
+class TopHeader extends React.Component {
+
+  constructor (_) {
+    super(_)
+  }
+
+  render() {
+
+    return (
+      <header className="TopHeader">
+        <h1>ack.mo</h1>
+        <div className="pull-right">
+          <GithubLogin user={ this.props.user } orgs={ this.props.orgs } isLoggingIn={ this.props.isLoggingIn } />
+          <SettingsGear />
+        </div>
+      </header>
+    )
+
+  }
+
+}
+
+class SettingsGear extends React.Component {
+
+  constructor (_) {
+    super(_)
+  }
+
+  click() {
+
+  }
+
+  render() {
+
+    return (
+      <a className="SettingsGear" onClick={this.click}></a>
+    )
+
+  }
+
+}
+
 class GithubLogin extends React.Component {
 
   constructor (props) {
@@ -102,7 +144,7 @@ class GithubLogin extends React.Component {
     console.info('got user', this.props.user, this.props.orgs)
 
     var githubLogin = this.props.user
-      ? <div>logged in!</div>
+      ? <div>{ this.props.user.username }</div>
       : <a onClick={this.login.bind(this)}>Sign into Github</a>
 
     return (

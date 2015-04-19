@@ -15,6 +15,10 @@ h1, h2, h3 {
   font-weight: 500;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 .FavList {
   border-right: 1px solid #eee;
   position: fixed;
@@ -73,10 +77,8 @@ h1, h2, h3 {
 
 .GithubLogin {
   color: #79A0A6;
+  display: inline-block;
   padding: 10px;
-  position: absolute;
-    top: 0;
-    right: 0;
 }
 
 .QueryBar {
@@ -89,6 +91,20 @@ h1, h2, h3 {
   width: 400px;
 }
 
+.SettingsGear {
+  background: url("../images/gear.svg") center no-repeat;
+  background-size: 20px;
+  display: inline-block;
+  height: 20px;
+  padding: 9px;
+  width: 20px;
+  vertical-align: top;
+}
+
+.SettingsGear:hover {
+  background-image: url("../images/gear-hover.svg");
+}
+
 .TopHeader {
   background: #315F66;
   color: #79A0A6;
@@ -97,4 +113,12 @@ h1, h2, h3 {
     left: 0;
     right: 0;
     top: 0;
+}
+
+.TopHeader .pull-right {
+  position: absolute;
+    right: 0;
+    top: 0;
+  text-align: right;
+  width: 200px;
 }

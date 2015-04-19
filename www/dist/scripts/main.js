@@ -1,7 +1,7 @@
-var ____Class7T=React.Component;for(var ____Class7T____Key in ____Class7T){if(____Class7T.hasOwnProperty(____Class7T____Key)){App[____Class7T____Key]=____Class7T[____Class7T____Key];}}var ____SuperProtoOf____Class7T=____Class7T===null?null:____Class7T.prototype;App.prototype=Object.create(____SuperProtoOf____Class7T);App.prototype.constructor=App;App.__superConstructor__=____Class7T;
+var ____Class8F=React.Component;for(var ____Class8F____Key in ____Class8F){if(____Class8F.hasOwnProperty(____Class8F____Key)){App[____Class8F____Key]=____Class8F[____Class8F____Key];}}var ____SuperProtoOf____Class8F=____Class8F===null?null:____Class8F.prototype;App.prototype=Object.create(____SuperProtoOf____Class8F);App.prototype.constructor=App;App.__superConstructor__=____Class8F;
 
   function App(props) {"use strict";
-    ____Class7T.call(this,props)
+    ____Class8F.call(this,props)
     this.state = {
       orgs: null,
       user: null,
@@ -41,7 +41,7 @@ var ____Class7T=React.Component;for(var ____Class7T____Key in ____Class7T){if(__
   Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
     return (
       React.createElement("div", null, 
-        React.createElement(GithubLogin, {user:  this.state.user, orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn}), 
+        React.createElement(TopHeader, {user:  this.state.user, orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn}), 
         React.createElement(QueryBar, null), 
         React.createElement(FavList, {user:  this.state.user, orgs:  this.state.orgs, isLoggingIn:  this.state.isLoggingIn})
       )
@@ -51,10 +51,10 @@ var ____Class7T=React.Component;for(var ____Class7T____Key in ____Class7T){if(__
 
 
 
-var ____Class7U=React.Component;for(var ____Class7U____Key in ____Class7U){if(____Class7U.hasOwnProperty(____Class7U____Key)){FavList[____Class7U____Key]=____Class7U[____Class7U____Key];}}var ____SuperProtoOf____Class7U=____Class7U===null?null:____Class7U.prototype;FavList.prototype=Object.create(____SuperProtoOf____Class7U);FavList.prototype.constructor=FavList;FavList.__superConstructor__=____Class7U;
+var ____Class8G=React.Component;for(var ____Class8G____Key in ____Class8G){if(____Class8G.hasOwnProperty(____Class8G____Key)){FavList[____Class8G____Key]=____Class8G[____Class8G____Key];}}var ____SuperProtoOf____Class8G=____Class8G===null?null:____Class8G.prototype;FavList.prototype=Object.create(____SuperProtoOf____Class8G);FavList.prototype.constructor=FavList;FavList.__superConstructor__=____Class8G;
 
   function FavList(props) {"use strict";
-    ____Class7U.call(this,props)
+    ____Class8G.call(this,props)
   }
 
   Object.defineProperty(FavList.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
@@ -83,10 +83,52 @@ var ____Class7U=React.Component;for(var ____Class7U____Key in ____Class7U){if(__
 
 
 
-var ____Class7V=React.Component;for(var ____Class7V____Key in ____Class7V){if(____Class7V.hasOwnProperty(____Class7V____Key)){GithubLogin[____Class7V____Key]=____Class7V[____Class7V____Key];}}var ____SuperProtoOf____Class7V=____Class7V===null?null:____Class7V.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class7V);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class7V;
+var ____Class8H=React.Component;for(var ____Class8H____Key in ____Class8H){if(____Class8H.hasOwnProperty(____Class8H____Key)){TopHeader[____Class8H____Key]=____Class8H[____Class8H____Key];}}var ____SuperProtoOf____Class8H=____Class8H===null?null:____Class8H.prototype;TopHeader.prototype=Object.create(____SuperProtoOf____Class8H);TopHeader.prototype.constructor=TopHeader;TopHeader.__superConstructor__=____Class8H;
+
+  function TopHeader($TopHeader_) {"use strict";
+    ____Class8H.call(this,$TopHeader_)
+  }
+
+  Object.defineProperty(TopHeader.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+
+    return (
+      React.createElement("header", {className: "TopHeader"}, 
+        React.createElement("h1", null, "ack.mo"), 
+        React.createElement("div", {className: "pull-right"}, 
+          React.createElement(GithubLogin, {user:  this.props.user, orgs:  this.props.orgs, isLoggingIn:  this.props.isLoggingIn}), 
+          React.createElement(SettingsGear, null)
+        )
+      )
+    )
+
+  }});
+
+
+
+var ____Class8I=React.Component;for(var ____Class8I____Key in ____Class8I){if(____Class8I.hasOwnProperty(____Class8I____Key)){SettingsGear[____Class8I____Key]=____Class8I[____Class8I____Key];}}var ____SuperProtoOf____Class8I=____Class8I===null?null:____Class8I.prototype;SettingsGear.prototype=Object.create(____SuperProtoOf____Class8I);SettingsGear.prototype.constructor=SettingsGear;SettingsGear.__superConstructor__=____Class8I;
+
+  function SettingsGear($SettingsGear_) {"use strict";
+    ____Class8I.call(this,$SettingsGear_)
+  }
+
+  Object.defineProperty(SettingsGear.prototype,"click",{writable:true,configurable:true,value:function() {"use strict";
+
+  }});
+
+  Object.defineProperty(SettingsGear.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+
+    return (
+      React.createElement("a", {className: "SettingsGear", onClick: this.click})
+    )
+
+  }});
+
+
+
+var ____Class8J=React.Component;for(var ____Class8J____Key in ____Class8J){if(____Class8J.hasOwnProperty(____Class8J____Key)){GithubLogin[____Class8J____Key]=____Class8J[____Class8J____Key];}}var ____SuperProtoOf____Class8J=____Class8J===null?null:____Class8J.prototype;GithubLogin.prototype=Object.create(____SuperProtoOf____Class8J);GithubLogin.prototype.constructor=GithubLogin;GithubLogin.__superConstructor__=____Class8J;
 
   function GithubLogin(props) {"use strict";
-    ____Class7V.call(this,props)
+    ____Class8J.call(this,props)
   }
 
   Object.defineProperty(GithubLogin.prototype,"login",{writable:true,configurable:true,value:function() {"use strict";
@@ -102,7 +144,7 @@ var ____Class7V=React.Component;for(var ____Class7V____Key in ____Class7V){if(__
     console.info('got user', this.props.user, this.props.orgs)
 
     var githubLogin = this.props.user
-      ? React.createElement("div", null, "logged in!")
+      ? React.createElement("div", null,  this.props.user.username)
       : React.createElement("a", {onClick: this.login.bind(this)}, "Sign into Github")
 
     return (
@@ -114,10 +156,10 @@ var ____Class7V=React.Component;for(var ____Class7V____Key in ____Class7V){if(__
 
 
 
-var ____Class7W=React.Component;for(var ____Class7W____Key in ____Class7W){if(____Class7W.hasOwnProperty(____Class7W____Key)){QueryBar[____Class7W____Key]=____Class7W[____Class7W____Key];}}var ____SuperProtoOf____Class7W=____Class7W===null?null:____Class7W.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class7W);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class7W;
+var ____Class8K=React.Component;for(var ____Class8K____Key in ____Class8K){if(____Class8K.hasOwnProperty(____Class8K____Key)){QueryBar[____Class8K____Key]=____Class8K[____Class8K____Key];}}var ____SuperProtoOf____Class8K=____Class8K===null?null:____Class8K.prototype;QueryBar.prototype=Object.create(____SuperProtoOf____Class8K);QueryBar.prototype.constructor=QueryBar;QueryBar.__superConstructor__=____Class8K;
 
   function QueryBar(props) {"use strict";
-    ____Class7W.call(this,props)
+    ____Class8K.call(this,props)
     this.state = {}
   }
 
