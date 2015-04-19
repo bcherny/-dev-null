@@ -7,6 +7,10 @@ bower_components
 # IntelliJ files
 .idea
 
-# NodeJs:
+# NodeJS
 node_modules
 npm-debug.log
+
+# Couch
+couchdb.stderr
+couchdb.stdout

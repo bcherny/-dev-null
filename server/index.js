@@ -1,3 +1,5 @@
+import Db from 'db'
+
 const PORT = 3000;    //TODO: This should be in config.json?
 
 const
@@ -69,13 +71,11 @@ express()
     }
   })
   .listen(PORT, function () {
-    //TODO: Use a config library
-    cradle.setup({
-      host: '127.0.0.1:5984',
+    let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
       cache: true,
       raw: false,
       forceSave: true
-    });
-    //TODO (bcherny) help me get this line to work: new Db(new (cradle.connection), 'test')
+    })
+    let db = new Db(connection, 'test')
     console.info('HTTP server listening on', PORT, '...')
   });

@@ -1,13 +1,10 @@
 # ack.mo (aka. the working title)
 
 ## Global deps
-Install couchdb
-```
-brew install couchdb
-```
 
 ```
-npm install -g nodemon react-tools
+brew install couchdb
+npm install -g babel nodemon react-tools
 ```
 
 ## building the frontend
@@ -22,8 +19,6 @@ bower i
 ```
 couchdb -b
 curl http://127.0.0.1:5984/
-```
-
 ```
 
 ## starting the server
