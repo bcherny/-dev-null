@@ -9,6 +9,14 @@ const
   source = require('vinyl-source-stream'),
   util = require('gulp-util')
 
+gulp.task('images', function () {
+
+  gulp
+    .src('./src/images/*')
+    .pipe(gulp.dest('./dist/images/'))
+
+})
+
 gulp.task('scripts', function () {
 
   var bundler = browserify({
@@ -44,10 +52,11 @@ gulp.task('styles', function () {
 
 })
 
-gulp.task('default', ['browserify'])
+gulp.task('default', ['images', 'scripts', 'styles'])
 
 gulp.task('watch', function () {
 
+  gulp.watch('src/images/*', ['images'])
   gulp.watch('src/scripts/*.js', ['scripts'])
   gulp.watch('src/styles/*.css', ['styles'])
 

@@ -1,5 +1,5 @@
 .SettingsGear {
-  background: url("../images/gear.svg") center no-repeat;
+  background: url("images/gear.svg") center no-repeat;
   background-size: 20px;
   display: inline-block;
   height: 20px;
@@ -9,5 +9,5 @@
 }
 
 .SettingsGear:hover {
-  background-image: url("../images/gear-hover.svg");
+  background-image: url("images/gear-hover.svg");
 }
