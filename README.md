@@ -4,7 +4,7 @@
 
 ```
 brew install couchdb
-npm install -g babel nodemon react-tools
+npm install -g babel gulp nodemon react-tools
 ```
 
 ## building the frontend
@@ -12,7 +12,7 @@ npm install -g babel nodemon react-tools
 ```
 cd www
 bower i
-./watch.sh
+gulp
 ```
 
 ## start the db
