@@ -1,11 +1,14 @@
+/* @flow */
+
+import React from 'react'
 import FavList from './FavList'
 import TopHeader from './TopHeader'
 import QueryBar from './QueryBar'
 
 export default class App extends React.Component {
 
-  constructor (props) {
-    super(props)
+  constructor (_) {
+    super(_)
     this.state = {
       orgs: null,
       user: null,
@@ -13,11 +16,11 @@ export default class App extends React.Component {
     }
   }
 
-  getUser() {
+  getUser(): Promise {
     return $.get('/user')
   }
 
-  getOrgs() {
+  getOrgs(): Promise {
     return $.get('/user/orgs')
   }
 

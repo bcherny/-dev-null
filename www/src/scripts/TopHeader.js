@@ -1,3 +1,4 @@
+import React from 'react'
 import GithubLogin from './GithubLogin'
 import SettingsGear from './SettingsGear'
 

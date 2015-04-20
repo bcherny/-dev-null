@@ -1,7 +1,9 @@
+import React from 'react'
+
 export default class FavList extends React.Component {
 
-  constructor (props) {
-    super(props)
+  constructor (_) {
+    super(_)
   }
 
   render() {

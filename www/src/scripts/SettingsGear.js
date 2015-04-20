@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default class SettingsGear extends React.Component {
 
   constructor (_) {

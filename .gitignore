@@ -3,6 +3,7 @@
 # Frontend
 .module-cache
 bower_components
+www/dist/
 
 # IntelliJ files
 .idea
