@@ -30,7 +30,7 @@ gulp.task('scripts', function () {
       .on('error', browserifyError)
       .pipe(source('bundle.js'))
       .pipe(buffer())
-      .pipe(gulp.dest('./dist/scripts/'))
+      .pipe(gulp.dest('./dist/'))
   }
 
   return bundle()
