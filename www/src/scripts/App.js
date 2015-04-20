@@ -1,5 +1,6 @@
 /* @flow */
 
+import $ from 'jQuery'
 import React from 'react'
 import FavList from './FavList'
 import TopHeader from './TopHeader'
