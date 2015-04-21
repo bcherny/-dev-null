@@ -1,4 +1,4 @@
-import Db from 'db'
+import Db from './db'
 
 const PORT = 3000;    //TODO: This should be in config.json?
 
