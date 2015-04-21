@@ -14,11 +14,13 @@
     "passport": "^0.2.1",
     "passport-github": "^0.1.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel": "^5.1.11"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec npm run babel-node -- index.js",
-    "babel-node": "babel-node"
+    "babel-node": "./node_modules/.bin/babel-node"
   },
   "author": "Boris Cherny <boris@performancejs.com> (http://performancejs.com/)",
   "license": "CC0"
