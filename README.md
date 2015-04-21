@@ -3,7 +3,7 @@
 ## Global deps
 
 ```
-brew install couchdb
+brew install couchdb node
 npm install -g nodemon
 ```
 
@@ -11,8 +11,8 @@ npm install -g nodemon
 
 ```
 cd www
-bower i
-gulp
+npm i
+gulp # or, "gulp watch" for developing
 ```
 
 ## start the db
@@ -24,6 +24,7 @@ curl http://127.0.0.1:5984/
 ## starting the server
 
 ```
+cd server
 npm i
 npm start
 ```
