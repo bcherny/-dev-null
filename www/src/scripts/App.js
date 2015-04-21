@@ -2,9 +2,9 @@
 
 import $ from 'jQuery'
 import React from 'react'
+import { RouteHandler } from 'react-router'
 import SideBar from './SideBar'
 import TopHeader from './TopHeader'
-import QueryBar from './QueryBar'
 
 export default class App extends React.Component {
 
@@ -50,7 +50,9 @@ export default class App extends React.Component {
     return (
       <div>
         <TopHeader user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
-        <QueryBar />
+        <section className="MainView">
+          <RouteHandler />
+        </section>
         <SideBar user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
       </div>
     )

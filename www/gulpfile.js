@@ -45,7 +45,8 @@ gulp.task('styles', function () {
     .on('error', reworkError)
     .pipe(rework(
       require('rework-npm')(),
-      require('rework-import')()
+      require('rework-import')(),
+      require('rework-vars')()
     ))
     .pipe(autoprefixer({ browsers: ['last 4 versions'] }))
     .pipe(concat('bundle.css'))

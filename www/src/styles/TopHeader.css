@@ -1,11 +1,15 @@
 .TopHeader {
   background: #315F66;
-  color: #79A0A6;
   padding: 10px;
   position: fixed;
     left: 0;
     right: 0;
     top: 0;
+}
+
+.TopHeader h1 a {
+  color: #79A0A6;
+  text-decoration: none;
 }
 
 .TopHeader .pull-right {

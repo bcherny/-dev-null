@@ -1,0 +1,9 @@
+@import "./vars";
+
+.MainView {
+  position: fixed;
+    bottom: 0;
+    left: calc(var(--sidebar-width) + 1px); /* width + border */
+    right: 0;
+    top: 38px;
+}

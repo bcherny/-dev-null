@@ -1,6 +1,6 @@
 import { get } from 'lodash'
 import React from 'react'
-import isvg from 'react-inlinesvg'
+import { Link } from 'react-router'
 
 export default class SettingsNav extends React.Component {
   
@@ -29,7 +29,7 @@ export default class SettingsNav extends React.Component {
       <div className="SettingsNav">
         <h2>Settings</h2>
         <ul>
-          <li>{ svg }Endpoints <tiny-badge>{ this.getDbs().length }</tiny-badge></li>
+          <li><Link to="settings">{ svg }Endpoints <tiny-badge>{ this.getDbs().length }</tiny-badge></Link></li>
         </ul>
       </div>
     )

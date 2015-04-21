@@ -24,6 +24,7 @@ a:hover {
 }
 
 @import "./GithubLogin";
+@import "./MainView";
 @import "./Modal";
 @import "./Querybar";
 @import "./SettingsNav";

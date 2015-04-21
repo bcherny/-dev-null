@@ -18,7 +18,7 @@ export default class FavList extends React.Component {
       { avatar: '', login: 'Public' }
     ]
       .concat(this.props.orgs || [])
-      .map(_ => <li><img src={ _.avatar_url } />{ _.login }</li>)
+      .map(_ => <li><a><img src={ _.avatar_url } />{ _.login }</a></li>)
 
     return (
       <section className="FavList">

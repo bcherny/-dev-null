@@ -11,7 +11,7 @@ export default class TopHeader extends React.Component {
 
     return (
       <header className="TopHeader">
-        <h1>ack.mo</h1>
+        <h1><a href="#">ack.mo</a></h1>
         <div className="pull-right">
           <GithubLogin user={ this.props.user } orgs={ this.props.orgs } isLoggingIn={ this.props.isLoggingIn } />
         </div>
