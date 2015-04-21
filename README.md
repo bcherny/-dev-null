@@ -11,8 +11,8 @@ npm install -g babel gulp nodemon react-tools
 
 ```
 cd www
-bower i
-gulp
+npm i
+gulp # or, "gulp watch" for developing
 ```
 
 ## start the db
