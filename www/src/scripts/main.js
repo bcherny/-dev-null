@@ -8,7 +8,7 @@ import SettingsView from './SettingsView'
 const routes = (
   <Router.Route handler={App}>
     <Router.DefaultRoute handler={QueryView}/>
-    <Router.Route name="settings" path="settings" handler={SettingsView}/>
+    <Router.Route name="settings/endpoints" path="settings/endpoints" handler={SettingsView}/>
   </Router.Route>
 )
 

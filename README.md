@@ -4,7 +4,7 @@
 
 ```
 brew install couchdb node
-npm install -g nodemon
+npm install -g gulp nodemon
 ```
 
 ## building the frontend

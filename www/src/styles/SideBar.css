@@ -26,8 +26,36 @@
 
 .SideBar Link,
 .SideBar a {
+  border-top: 1px solid #eee;
   color: #666;
+  display: block;
   font-size: 12px;
+  font-weight: 400;
+  padding-left: 35px;
+  position: relative;
+  text-decoration: none;
+  transition: all .1s linear;
+}
+
+.SideBar a:after {
+  content: "▾";
+  font-weight: 100;
+  position: absolute;
+    right: 10px;
+    top: 9px;
+}
+
+.SideBar a:hover {
+  background: #f9f9f9;
+}
+
+.SideBar a.active {
+  background: #f9f9f9;
+  font-weight: 500;
+}
+
+.SideBar li:last-of-type > a {
+  border-bottom: 1px solid #eee;
 }
 
 .SideBar img,
@@ -37,31 +65,6 @@
     left: 10px;
     top: 10px;
   width: 17px;
-}
-
-.SideBar ul > li > a {
-  border-top: 1px solid #eee;
-  display: block;
-  font-weight: 400;
-  padding-left: 35px;
-  position: relative;
-  text-decoration: none;
-  transition: background .1s linear;
-}
-
-.SideBar ul > li > a:after {
-  content: "▾";
-  position: absolute;
-    right: 10px;
-    top: 9px;
-}
-
-.SideBar ul > li > a:hover {
-  background: #f9f9f9;
-}
-
-.SideBar ul > li:last-of-type > a {
-  border-bottom: 1px solid #eee;
 }
 
 .SideBar em,

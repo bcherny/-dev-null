@@ -25,14 +25,20 @@ export default class SettingsNav extends React.Component {
           l6.679-6.68C80.225,70.366,80.225,67.79,78.636,66.202z"/>
       </svg>
 
+    const className = this.context.router.isActive('settings/endpoints') ? 'active' : ''
+
     return (
       <div className="SettingsNav">
         <h2>Settings</h2>
         <ul>
-          <li><Link to="settings">{ svg }Endpoints <tiny-badge>{ this.getDbs().length }</tiny-badge></Link></li>
+          <li><Link to="settings/endpoints" className={ className }>{ svg }Endpoints <tiny-badge>{ this.getDbs().length }</tiny-badge></Link></li>
         </ul>
       </div>
     )
   }
 
+}
+
+SettingsNav.contextTypes = {
+  router: React.PropTypes.func
 }
