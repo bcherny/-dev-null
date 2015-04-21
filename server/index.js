@@ -70,6 +70,21 @@ express()
       res.status(401).send()
     }
   })
+  .get('/connectionTest', function(req, res) {
+      var DataSource = require('loopback-datasource-juggler').DataSource;
+      var dataSource = new DataSource('mysql', {
+        host: 'localhost',
+        port: 3306,
+        database: 'main',
+        username: 'dev',
+        password: 'dev'
+      });
+      dataSource.connector.query("SELECT * from users", function(err, result) {
+        console.log(result)
+        res.status(200).send(result).end()
+      })
+      //res.send()
+   })
   .listen(PORT, function () {
     let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
       cache: true,
