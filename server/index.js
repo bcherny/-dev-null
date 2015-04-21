@@ -3,8 +3,10 @@ import Db from './db'
 const PORT = 3000;    //TODO: This should be in config.json?
 
 const
+  bodyParser = require('body-parser'),
   cradle = require('cradle'),
   cookieParser = require('cookie-parser'),
+  DataSource = require('loopback-datasource-juggler').DataSource,
   express = require('express'),
   https = require('https'),
   passport = require('passport'),
@@ -34,6 +36,7 @@ passport.deserializeUser(function(obj, done) {
 
 // configure express
 express()
+  .use(bodyParser.json())
   .use(cookieParser())
   .use(session({ secret: 'keyboard cat' }))
   .use(passport.initialize())
@@ -70,27 +73,18 @@ express()
       res.status(401).send()
     }
   })
-  .get('/connectionTest', function(req, res) {
-      var DataSource = require('loopback-datasource-juggler').DataSource;
-      var dataSource = new DataSource('mysql', {
-        host: 'localhost',
-        port: 3306,
-        database: 'main',
-        username: 'dev',
-        password: 'dev'
-      });
-      dataSource.connector.query("SELECT * from users", function(err, result) {
-        console.log(result)
-        res.status(200).send(result).end()
-      })
-      //res.send()
+  .post('/eval/db/:env', function(req, res) {
+    let db = new DataSource(req.params.env, req.body.settings).connector;
+    db.query(req.body.query, function(err, result) {
+      res.status(200).send(result).end()
+    });
    })
   .listen(PORT, function () {
     let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
       cache: true,
       raw: false,
       forceSave: true
-    })
+    });
     let db = new Db(connection, 'test')
     console.info('HTTP server listening on', PORT, '...')
   });
