@@ -19,7 +19,7 @@ export default class GithubLogin extends React.Component {
     console.info('got user', this.props.user, this.props.orgs)
 
     var githubLogin = this.props.user
-      ? <div>{ this.props.user.username }</div>
+      ? <div>Signed in as <strong>{ this.props.user.username }</strong></div>
       : <a onClick={this.login.bind(this)}>Sign into Github</a>
 
     return (

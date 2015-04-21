@@ -2,7 +2,7 @@
 
 import $ from 'jQuery'
 import React from 'react'
-import FavList from './FavList'
+import SideBar from './SideBar'
 import TopHeader from './TopHeader'
 import QueryBar from './QueryBar'
 
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       <div>
         <TopHeader user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
         <QueryBar />
-        <FavList user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
+        <SideBar user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
       </div>
     )
   }

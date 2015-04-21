@@ -1,4 +1,4 @@
-.FavList {
+.SideBar {
   border-right: 1px solid #eee;
   position: fixed;
     bottom: 0;
@@ -7,48 +7,59 @@
   width: 200px;
 }
 
-.FavList em,
-.FavList h2,
-.FavList li,
-.FavList small {
+.SideBar em,
+.SideBar h2,
+.SideBar li,
+.SideBar small {
   padding: 10px;
 }
 
-.FavList em,
-.FavList h2,
-.FavList small {
+.SideBar em,
+.SideBar h2,
+.SideBar small {
   padding-bottom: 20px;
   padding-top: 20px;
 }
 
-.FavList li {
+.SideBar li {
   color: #666;
   font-size: 12px;
 }
 
-.FavList img {
+.SideBar img,
+.SideBar svg {
   height: 17px;
   position: absolute;
     left: 10px;
     top: 10px;
+  width: 17px;
 }
 
-.FavList > ul > li {
-  background: #f9f9f9;
+.SideBar ul > li {
+  border-top: 1px solid #eee;
   font-weight: 400;
   padding-left: 35px;
   position: relative;
+  transition: background .1s linear;
 }
 
-.FavList > ul > li:after {
+.SideBar ul > li:after {
   content: "▾";
   position: absolute;
     right: 10px;
     top: 9px;
 }
 
-.FavList em,
-.FavList small {
+.SideBar ul > li:hover {
+  background: #f9f9f9;
+}
+
+.SideBar ul > li:last-of-type {
+  border-bottom: 1px solid #eee;
+}
+
+.SideBar em,
+.SideBar small {
   color: #999;
   display: block;
   text-align: center;

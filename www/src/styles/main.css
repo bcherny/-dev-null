@@ -19,8 +19,13 @@ a:hover {
   cursor: pointer;
 }
 
-@import "./FavList";
+.hide {
+  display: none;
+}
+
 @import "./GithubLogin";
+@import "./Modal";
 @import "./Querybar";
-@import "./SettingsGear";
+@import "./SettingsNav";
+@import "./SideBar";
 @import "./TopHeader";

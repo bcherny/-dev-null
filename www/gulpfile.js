@@ -5,6 +5,7 @@ const
   buffer = require('vinyl-buffer'),
   concat = require('gulp-concat'),
   gulp = require('gulp'),
+  notifier = require('node-notifier'),
   rework = require('gulp-rework'),
   source = require('vinyl-source-stream'),
   util = require('gulp-util')

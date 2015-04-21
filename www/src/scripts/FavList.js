@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 
 export default class FavList extends React.Component {
 
@@ -25,7 +24,6 @@ export default class FavList extends React.Component {
       <section className="FavList">
         <h2>Favorites</h2>
         <ul>{ items }</ul>
-        { this.props.isLoggingIn ? <em>Loading orgs...</em> : <small>Last updated { moment().format('h:mma') }</small> }
       </section>
     )
 

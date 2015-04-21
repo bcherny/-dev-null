@@ -9,7 +9,7 @@ export default class QueryBar extends React.Component {
 
   render() {
     return (
-      <input className="QueryBar" placeholder="Enter a query..." type="text" />
+      <input className="QueryBar" placeholder="Enter a query..." type="text" tabindex="0" />
     )
   }
 
