@@ -18,7 +18,7 @@
     "babel": "^5.1.11"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/test.js",
     "start": "nodemon --exec npm run babel-node -- index.js",
     "babel-node": "./node_modules/.bin/babel-node"
   },

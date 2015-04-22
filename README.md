@@ -1,9 +1,11 @@
+[![Circle CI](https://circleci.com/gh/pathikrit/-dev-null/tree/master.svg?style=svg)](https://circleci.com/gh/pathikrit/-dev-null/tree/master)
+
 # ack.mo (aka. the working title)
 
 ## Global deps
 
 ```
-brew install couchdb node
+brew install couchdb nodejs
 npm install -g gulp nodemon
 ```
 

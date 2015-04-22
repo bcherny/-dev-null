@@ -1,0 +1,10 @@
+dependencies:
+  pre:
+    - npm install -g gulp nodemon
+    - cd server
+    - npm i
+
+test:
+  override:
+    - cd server
+    - npm test
