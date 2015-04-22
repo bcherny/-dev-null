@@ -17,9 +17,10 @@
 
 export default class Giver {
 
-  constructor(){
+  constructor (loud) {
     this.givers = {}
     this._outstanding = {}
+    this.loud = loud || true
   }
 
   // (channel: string, fn: any): Giver
@@ -27,7 +28,7 @@ export default class Giver {
 
     let promise = new Promise(resolve => resolve(fn))
 
-    console.log('provide', channel, fn, promise)
+    if (this.loud) console.log('provide', channel, fn, promise)
 
     this.givers[channel] = promise
 
@@ -42,7 +43,7 @@ export default class Giver {
   // (channel: string): Promise
   askFor (channel) {
 
-    console.info('askFor', channel, this.givers[channel])
+    if (this.loud) console.info('askFor', channel, this.givers[channel])
 
     if (!this.givers[channel]) {
       return new Promise((resolve) => this._outstanding[channel] = resolve)
