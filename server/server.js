@@ -1,7 +1,5 @@
 import Db from './db'
 
-const PORT = 3000;    //TODO: This should be in config.json?
-
 const
   bodyParser = require('body-parser'),
   cradle = require('cradle'),
@@ -84,13 +82,3 @@ let app = express()
    });
 
 export default app;
-
-//app.listen(PORT, function () {
-//    let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
-//      cache: true,
-//      raw: false,
-//      forceSave: true
-//    });
-//    let db = new Db(connection, 'test')
-//    console.info('HTTP server listening on', PORT, '...')
-//  });

@@ -15,10 +15,11 @@
     "passport-github": "^0.1.5"
   },
   "devDependencies": {
-    "babel": "^5.1.11"
+    "babel": "^5.1.11",
+    "supertest": "^0.15.0"
   },
   "scripts": {
-    "test": "node tests/test.js",
+    "test": "babel-node tests/test.js",
     "start": "nodemon --exec npm run babel-node -- index.js",
     "babel-node": "./node_modules/.bin/babel-node"
   },
