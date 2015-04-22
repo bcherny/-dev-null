@@ -1,20 +1,18 @@
+import bodyParser from 'body-parser'
+import cradle from 'cradle'
+import cookieParser from 'cookie-parser'
+import { DataSource } from 'loopback-datasource-juggler'
+import express from 'express'
+import https from 'https'
+import passport from 'passport'
+import session from 'express-session'
+import { Strategy } from 'passport-github'
 import Db from './db'
-
-const
-  bodyParser = require('body-parser'),
-  cradle = require('cradle'),
-  cookieParser = require('cookie-parser'),
-  DataSource = require('loopback-datasource-juggler').DataSource,
-  express = require('express'),
-  https = require('https'),
-  passport = require('passport'),
-  session = require('express-session'),
-  GitHubStrategy = require('passport-github').Strategy;
 
 // configure passport
 // @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
 passport.use(
-  new GitHubStrategy({
+  new Strategy({
     clientID: process.env.client_id || '5dda5e640b390bc40468',
     clientSecret: process.env.client_secret || 'af9b23df713de6a5cfc819a92e0ae6f799a800b3',
     callbackURL: 'http://localhost:3000/login/callback'
@@ -54,6 +52,7 @@ let app = express()
       res.status(401).send()
     }
   })
+  .get('/user/connections', (_, res) => res.send([]))
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
     if (req.user) {

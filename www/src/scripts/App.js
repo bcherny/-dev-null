@@ -20,6 +20,14 @@ export default class App extends React.Component {
     }
   }
 
+  getConnections(): Promise {
+    return new Promise((resolve, reject) => {
+      $.get('/user/connections')
+        .done(resolve)
+        .fail(reject)
+    })
+  }
+
   getUser(): Promise {
     return new Promise((resolve, reject) => {
       $.get('/user')
@@ -29,12 +37,17 @@ export default class App extends React.Component {
   }
 
   getOrgs(): Promise {
-    return $.get('/user/orgs')
+    return new Promise((resolve, reject) => {
+      $.get('/user/orgs')
+        .done(resolve)
+        .fail(reject)
+    })
   }
 
   componentDidMount() {
 
     giver
+      .provide('connections', this.getConnections())
       .provide('orgs', this.getOrgs())
       .provide('user', this.getUser())
 

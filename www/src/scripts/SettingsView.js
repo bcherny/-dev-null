@@ -11,23 +11,23 @@ export default class SettingsView extends React.Component {
   componentDidMount() {
 
     giver
-      .askFor('user')
-      .then(user => {
-        console.log('got user', this.state.user)
-        this.state.user = user
+      .askFor('connections')
+      .then(connections => {
+        console.log('got connections', this.state.connections)
+        this.state.connections = connections
       })
 
   }
 
   render() {
 
-    if (!this.state.user) {
-      return <div>Getting user...</div>
+    if (!this.state.connections) {
+      return <div>Getting connections...</div>
     }
 
-    console.log('user', this.state.user)
+    console.log('connections', this.state.connections)
 
-    const connections = this.state.user.connections.map(_ => {
+    const connections = this.state.connections.map(_ => {
       <li>{ connection }</li>
     })
 
