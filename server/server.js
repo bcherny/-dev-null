@@ -35,7 +35,7 @@ passport.deserializeUser(function(obj, done) {
 });
 
 // configure express
-express()
+let app = express()
   .use(bodyParser.json())
   .use(cookieParser())
   .use(session({ secret: 'keyboard cat' }))
@@ -73,18 +73,24 @@ express()
       res.status(401).send()
     }
   })
+  .get('/cow', function(req, res) {
+    res.status(200).send({"says": "moo"})
+  })
   .post('/eval/db/:env', function(req, res) {
     let db = new DataSource(req.params.env, req.body.settings).connector;
     db.query(req.body.query, function(err, result) {
       res.status(200).send(result).end()
     });
-   })
-  .listen(PORT, function () {
-    let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
-      cache: true,
-      raw: false,
-      forceSave: true
-    });
-    let db = new Db(connection, 'test')
-    console.info('HTTP server listening on', PORT, '...')
-  });
+   });
+
+export default app;
+
+//app.listen(PORT, function () {
+//    let connection = new(cradle.Connection)('http://127.0.0.1', 5984, {
+//      cache: true,
+//      raw: false,
+//      forceSave: true
+//    });
+//    let db = new Db(connection, 'test')
+//    console.info('HTTP server listening on', PORT, '...')
+//  });
