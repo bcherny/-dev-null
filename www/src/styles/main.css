@@ -23,10 +23,25 @@ a:hover {
   display: none;
 }
 
+button,
+input[type="button"],
+input[type="submit"] {
+  background: #f9f9f9;
+  padding: 3px 7px;
+}
+
+input[type="password"],
+input[type="text"] {
+  border-bottom: 1px solid #ccc;
+  font: 400 14px/18px "Menlo", Monaco, Consolas, "Courier New", monospace;
+  padding: 5px 0;
+}
+
 @import "./GithubLogin";
 @import "./MainView";
 @import "./Modal";
 @import "./Querybar";
 @import "./SettingsNav";
+@import "./SettingsView";
 @import "./SideBar";
 @import "./TopHeader";

@@ -3,8 +3,11 @@
 import $ from 'jQuery'
 import React from 'react'
 import { RouteHandler } from 'react-router'
+import Giver from './Giver'
 import SideBar from './SideBar'
 import TopHeader from './TopHeader'
+
+export let giver = new Giver
 
 export default class App extends React.Component {
 
@@ -18,7 +21,11 @@ export default class App extends React.Component {
   }
 
   getUser(): Promise {
-    return $.get('/user')
+    return new Promise((resolve, reject) => {
+      $.get('/user')
+        .done(resolve)
+        .fail(reject)
+    })
   }
 
   getOrgs(): Promise {
@@ -27,22 +34,26 @@ export default class App extends React.Component {
 
   componentDidMount() {
 
+    giver
+      .provide('orgs', this.getOrgs())
+      .provide('user', this.getUser())
+
     this
       .setState({ isLoggingIn: true })
 
-    this
-
-      // when the component loads, check if the user is signed in
-      .getUser()
-      .done(_ => this.setState({ user: _ }))
-      .fail(_ => this.setState({ user: null }))
-      .always(_ => this.setState({ isLoggingIn: false }))
-
-      // then, fetch their github orgs
-      .then(_ => this.getOrgs())
-      .done(_ => this.setState({ orgs: _ }))
-      .fail(_ => this.setState({ orgs: null }))
-      .always(_ => this.setState({ isLoggingIn: false }))
+    Promise
+      .all([
+        this.getUser(),
+        this.getOrgs()
+      ])
+      .then(([user, orgs]) => {
+        this.setState({
+          isLoggingIn: false,
+          orgs: orgs,
+          user: user
+        })
+      })
+      .catch(_ => this.setState({ isLoggingIn: false }))
 
   }
 

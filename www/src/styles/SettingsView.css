@@ -1,0 +1,23 @@
+.SettingsView label {
+  box-sizing: border-box;
+  color: #999;
+  display: inline-block;
+  padding: 10px;
+}
+
+.SettingsView label input {
+  display: block;
+  width: 100%;
+}
+
+.SettingsView label input[type="password"],
+.SettingsView label input[type="text"] {
+}
+
+.half-width {
+  width: 50%;
+}
+
+.quarter-width {
+  width: 25%;
+}

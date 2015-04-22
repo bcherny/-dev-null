@@ -25,7 +25,9 @@ export default class SettingsNav extends React.Component {
           l6.679-6.68C80.225,70.366,80.225,67.79,78.636,66.202z"/>
       </svg>
 
-    const className = this.context.router.isActive('settings/endpoints') ? 'active' : ''
+    const className = this.context.router.isActive('settings/endpoints')
+      ? 'active'
+      : ''
 
     return (
       <div className="SettingsNav">

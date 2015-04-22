@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route, DefaultRoute, RouteHandler, Link } from 'react-router'
 import Router from 'react-router'
 import App from './App'
 import QueryView from './QueryView'
