@@ -32,7 +32,11 @@ export default class Giver {
       console.log('provide', channel, fn, promise)
     }
 
-    this.givers.set([channel], promise)
+    if (this.givers.has(channel)) {
+      console.warn(`overriding existing value in channel ${ channel }:`, this.givers.get(channel))
+    }
+
+    this.givers.set(channel, promise)
 
     if (this._outstanding[channel]) {
       this._outstanding[channel](promise)
