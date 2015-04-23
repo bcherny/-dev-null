@@ -13,7 +13,7 @@ export default class SettingsView extends React.Component {
     giver
       .askFor('connections')
       .then(connections => {
-        this.state.connections = connections
+        this.setState({ connections: connections })
       })
 
   }
