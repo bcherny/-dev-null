@@ -13,7 +13,6 @@ export default class SettingsView extends React.Component {
     giver
       .askFor('connections')
       .then(connections => {
-        console.log('got it', connections)
         this.setState({ connections: connections })
       })
 
@@ -24,8 +23,6 @@ export default class SettingsView extends React.Component {
     if (!this.state.connections) {
       return <div>Getting connections...</div>
     }
-
-    console.log('render', this.state.connections)
 
     const label = (value) => {
       return (
