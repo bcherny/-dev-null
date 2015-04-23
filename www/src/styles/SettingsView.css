@@ -37,6 +37,7 @@
 
 .SettingsView li {
   border-bottom: 1px solid #eee;
+  list-style: none;
 }
 
 .SettingsView li input {
