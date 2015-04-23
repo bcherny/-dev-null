@@ -7,10 +7,10 @@ import https from 'https'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
+
 import Db from './db'
 
-// configure passport
-// @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
+// configure passport @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
 passport.use(
   new Strategy({
     clientID: process.env.client_id || '5dda5e640b390bc40468',
@@ -70,14 +70,15 @@ let app = express()
       res.status(401).send()
     }
   })
-  .get('/cow', function(req, res) {
-    res.status(200).send({"says": "moo"})
-  })
   .post('/eval/db/:env', function(req, res) {
     let db = new DataSource(req.params.env, req.body.settings).connector;
     db.query(req.body.query, function(err, result) {
-      res.status(200).send(result).end()
+      if (err) {
+        res.status(403).send(err).end()
+      } else {
+        res.status(200).send(result).end()
+      }
     });
-   });
+  });
 
 export default app;
