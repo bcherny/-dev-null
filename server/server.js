@@ -70,9 +70,6 @@ let app = express()
       res.status(401).send()
     }
   })
-  .get('/cow', function(req, res) {
-    res.status(200).send({"says": "moo"})
-  })
   .post('/eval/db/:env', function(req, res) {
     let db = new DataSource(req.params.env, req.body.settings).connector;
     db.query(req.body.query, function(err, result) {
