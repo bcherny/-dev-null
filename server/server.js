@@ -52,7 +52,16 @@ let app = express()
       res.status(401).send()
     }
   })
-  .get('/user/connections', (_, res) => res.send([]))
+
+  // mock connections
+  // TODO: send real connections
+  .get('/user/connections', (_, res) => res.send([
+    {
+      "nickname": "My database",
+      "url": "mysql://dev-db.cow.com:3306",
+      "user": "admin"
+    }
+  ]))
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
     if (req.user) {

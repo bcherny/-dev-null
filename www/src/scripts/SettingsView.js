@@ -13,6 +13,7 @@ export default class SettingsView extends React.Component {
     giver
       .askFor('connections')
       .then(connections => {
+        console.log('got it', connections)
         this.setState({ connections: connections })
       })
 
@@ -24,17 +25,31 @@ export default class SettingsView extends React.Component {
       return <div>Getting connections...</div>
     }
 
+    console.log('render', this.state.connections)
+
+    const label = (value) => {
+      return (
+        <label className="quarter-width">
+          <input type="text" value={ value } disabled />
+        </label>
+      )
+    }
+
     const connections = this.state.connections.map(_ => {
-      <li>{ connection }</li>
+      return <li>{ label(_.nickname) }{ label(_.url) }{ label(_.user) }</li>
     })
 
     return (
       <div className="SettingsView">
 
         <form>
-          <label className="half-width">
+          <label className="quarter-width">
+            Nickname
+            <input type="text" placeholder="Prod DB" />
+          </label>
+          <label className="quarter-width">
             URL
-            <input type="text" placeholder="mysql://dev-db.cow.com:3306" />
+            <input type="url" placeholder="mysql://dev-db.cow.com:3306" />
           </label>
           <label className="quarter-width">
             Username

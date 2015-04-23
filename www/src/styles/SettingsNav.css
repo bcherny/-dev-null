@@ -1,8 +1,14 @@
-.connection-f {
+.icon-connection-f {
   fill: #B6C7DD;
 }
-.connection-m {
+.icon-connection-m {
   fill: #8EA2BD;
+}
+.icon-db path {
+  fill: #8EA2BD;
+}
+.icon-db path:nth-of-type(2) {
+  fill: #B6C7DD;
 }
 
 tiny-badge {
@@ -10,7 +16,6 @@ tiny-badge {
   float: right;
   margin-right: 16px;
   text-align: right;
-  font-size: 49px;
   font-weight: 100;
   margin-top: -1px;
 }

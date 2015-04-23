@@ -1,3 +1,8 @@
+.SettingsView form {
+  background: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
 .SettingsView label {
   box-sizing: border-box;
   color: #999;
@@ -6,12 +11,20 @@
 }
 
 .SettingsView label input {
+  background: 0;
   display: block;
+  margin-top: 1px;
   width: 100%;
 }
 
 .SettingsView label input[type="password"],
 .SettingsView label input[type="text"] {
+}
+
+.SettingsView label span {
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .half-width {
@@ -20,4 +33,12 @@
 
 .quarter-width {
   width: 25%;
+}
+
+.SettingsView li {
+  border-bottom: 1px solid #eee;
+}
+
+.SettingsView li input {
+  border: 0;
 }

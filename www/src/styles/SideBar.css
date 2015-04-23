@@ -9,7 +9,10 @@
   width: var(--sidebar-width);
 }
 
-.SideBar Link,
+.SideBar ul {
+  border-bottom: 1px solid #eee;
+}
+
 .SideBar a,
 .SideBar em,
 .SideBar h2,
@@ -24,7 +27,6 @@
   padding-top: 20px;
 }
 
-.SideBar Link,
 .SideBar a {
   border-top: 1px solid #eee;
   color: #666;
@@ -54,8 +56,25 @@
   font-weight: 500;
 }
 
-.SideBar li:last-of-type > a {
-  border-bottom: 1px solid #eee;
+.SideBar li ul {
+  margin-bottom: -1px; /* collapse border-bottom */
+}
+
+.SideBar li ul a {
+  background: #fff;
+  font-weight: 400;
+  padding: 5px 5px 5px 35px;
+}
+
+.SideBar li ul a svg {
+  height: 13px;
+  left: 12px;
+  top: 8px;
+  width: 13px;
+}
+
+.SideBar li ul a:after {
+  content: "";
 }
 
 .SideBar img,

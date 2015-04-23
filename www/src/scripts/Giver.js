@@ -19,7 +19,7 @@ export default class Giver {
 
   constructor (loud) {
     this.givers = new Map()
-    this._outstanding = {}
+    this._outstanding = new Map()
     this.loud = loud || true
   }
 
@@ -38,8 +38,9 @@ export default class Giver {
 
     this.givers.set(channel, promise)
 
-    if (this._outstanding[channel]) {
-      this._outstanding[channel](promise)
+    if (this._outstanding.has(channel)) {
+      this._outstanding.get(channel).forEach(_ => _(promise))
+      this._outstanding.delete(channel)
     }
 
     return this
@@ -56,7 +57,14 @@ export default class Giver {
     }
 
     if (!res) {
-      return new Promise((resolve) => this._outstanding[channel] = resolve)
+
+      if (!this._outstanding.has(channel)) {
+        this._outstanding.set(channel, [])
+      }
+
+      let channels = this._outstanding.get(channel)
+
+      return new Promise((resolve) => channels.push(resolve))
     }
 
     return res
