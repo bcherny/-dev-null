@@ -5,7 +5,6 @@
 ## Global deps
 
 ```
-brew install couchdb nodejs
 npm install -g gulp nodemon mocha
 ```
 
@@ -15,12 +14,6 @@ npm install -g gulp nodemon mocha
 cd www
 npm i
 gulp # or, "gulp watch" for developing
-```
-
-## start the db
-```
-couchdb -b
-curl http://127.0.0.1:5984/
 ```
 
 ## starting the server

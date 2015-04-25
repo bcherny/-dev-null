@@ -6,7 +6,7 @@ dependencies:
 
 test:
   pre:
-    - mysql -u ubuntu circle_test < server/tests/prefill.sql
+    - mysql -u ubuntu circle_test < server/test/prefill.sql
 
   override:
     - cd server; npm test

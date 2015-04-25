@@ -1,14 +1,12 @@
 import bodyParser from 'body-parser'
-import cradle from 'cradle'
 import cookieParser from 'cookie-parser'
 import { DataSource } from 'loopback-datasource-juggler'
 import express from 'express'
 import https from 'https'
+import levelup from 'level'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
-
-import Db from './db'
 
 // configure passport @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
 passport.use(
