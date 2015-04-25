@@ -20,7 +20,7 @@
     "supertest": "^0.15.0"
   },
   "scripts": {
-    "test": "babel-node tests/test.js",
+    "test": "mocha --require babel/register",
     "start": "nodemon --exec npm run babel-node -- index.js",
     "babel-node": "./node_modules/.bin/babel-node"
   },
