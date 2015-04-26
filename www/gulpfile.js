@@ -9,7 +9,8 @@ const
   rework = require('gulp-rework'),
   source = require('vinyl-source-stream'),
   sourcemaps = require('gulp-sourcemaps'),
-  util = require('gulp-util')
+  util = require('gulp-util'),
+  watchify = require('watchify')
 
 gulp.task('images', function () {
 
@@ -19,25 +20,21 @@ gulp.task('images', function () {
 
 })
 
-gulp.task('scripts', function () {
+// watchify
+gulp.task('scripts', bundle)
+var bundler = watchify(browserify('./src/scripts/main.js', watchify.args))
+  .transform('babelify')
+  .on('update', bundle)
+function bundle () {
 
-  var bundler = browserify({
-    entries: ['./src/scripts/main.js']
-  })
+  return bundler
+    .bundle()
+    .on('error', browserifyError)
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('dist/'))
 
-  var bundle = function() {
-    return bundler
-      .transform(babelify)
-      .bundle()
-      .on('error', browserifyError)
-      .pipe(source('bundle.js'))
-      .pipe(buffer())
-      .pipe(gulp.dest('./dist/'))
-  }
-
-  return bundle()
-
-})
+}
 
 gulp.task('styles', function () {
 

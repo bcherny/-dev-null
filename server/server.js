@@ -51,8 +51,8 @@ let app = express()
     }
   })
 
-  // mock connections
-  // TODO: send real connections
+  // mock endpoints
+  // TODO: send real endpoints
   .get('/user/endpoints', (_, res) => res.send([
     {
       "nickname": "My database",
@@ -60,6 +60,12 @@ let app = express()
       "user": "admin"
     }
   ]))
+
+  // endpoint create stub
+  .post('/user/endpoints', (req, res) => {
+    console.log(req)
+    res.json(req.body)
+  })
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
     if (req.user) {
