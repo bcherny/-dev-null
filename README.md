@@ -2,23 +2,25 @@
 
 # ack.mo (aka. the working title)
 
-## Global deps
-
-```
-npm install -g gulp nodemon mocha
-```
-
 ## building the frontend
 
-```
+```sh
 cd www
 npm i
-gulp # or, "gulp watch" for developing
+npm run-script build
+```
+
+## hacking on the frontend
+
+```sh
+cd www
+npm i
+npm run-script watch
 ```
 
 ## starting the server
 
-```
+```sh
 cd server
 npm i
 npm start
