@@ -20,9 +20,9 @@ export default class App extends React.Component {
     }
   }
 
-  getConnections(): Promise {
+  getEndpoints(): Promise {
     return new Promise((resolve, reject) => {
-      $.get('/user/connections')
+      $.get('/user/endpoints')
         .done(resolve)
         .fail(reject)
     })
@@ -47,7 +47,7 @@ export default class App extends React.Component {
   componentDidMount() {
 
     giver
-      .provide('connections', this.getConnections())
+      .provide('endpoints', this.getEndpoints())
       .provide('orgs', this.getOrgs())
       .provide('user', this.getUser())
 
@@ -77,7 +77,7 @@ export default class App extends React.Component {
         <section className="MainView">
           <RouteHandler />
         </section>
-        <SideBar user={ this.state.user } orgs={ this.state.orgs } isLoggingIn={ this.state.isLoggingIn } />
+        <SideBar user={ this.state.user } isLoggingIn={ this.state.isLoggingIn } />
       </div>
     )
   }

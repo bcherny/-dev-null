@@ -17,6 +17,7 @@
     "gulp-autoprefixer": "^2.1.0",
     "gulp-concat": "^2.5.2",
     "gulp-rework": "^1.0.3",
+    "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.4",
     "node-notifier": "^4.2.1",
     "rework-import": "^2.0.1",

@@ -53,7 +53,7 @@ let app = express()
 
   // mock connections
   // TODO: send real connections
-  .get('/user/connections', (_, res) => res.send([
+  .get('/user/endpoints', (_, res) => res.send([
     {
       "nickname": "My database",
       "url": "mysql://dev-db.cow.com:3306",

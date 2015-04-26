@@ -8,6 +8,7 @@ const
   notifier = require('node-notifier'),
   rework = require('gulp-rework'),
   source = require('vinyl-source-stream'),
+  sourcemaps = require('gulp-sourcemaps'),
   util = require('gulp-util')
 
 gulp.task('images', function () {
@@ -41,15 +42,17 @@ gulp.task('scripts', function () {
 gulp.task('styles', function () {
 
   gulp
-    .src('./src/styles/*.css')
+    .src('./src/styles/main.css')
     .on('error', reworkError)
+    .pipe(sourcemaps.init())
     .pipe(rework(
       require('rework-npm')(),
       require('rework-import')(),
       require('rework-vars')()
     ))
     .pipe(autoprefixer({ browsers: ['last 4 versions'] }))
-    .pipe(concat('bundle.css'))
+    .pipe(concat('bundle.css')) // rename
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist/'))
 
 })

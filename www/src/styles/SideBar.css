@@ -13,6 +13,10 @@
   border-bottom: 1px solid #eee;
 }
 
+.SideBar li {
+  display: block;
+}
+
 .SideBar a,
 .SideBar em,
 .SideBar h2,

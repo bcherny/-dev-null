@@ -11,17 +11,17 @@ export default class SettingsView extends React.Component {
   componentDidMount() {
 
     giver
-      .askFor('connections')
-      .then(connections => {
-        this.setState({ connections: connections })
+      .askFor('endpoints')
+      .then(endpoints => {
+        this.setState({ endpoints: endpoints })
       })
 
   }
 
   render() {
 
-    if (!this.state.connections) {
-      return <div>Getting connections...</div>
+    if (!this.state.endpoints) {
+      return <div>Getting endpoints...</div>
     }
 
     const label = (value) => {
@@ -32,12 +32,14 @@ export default class SettingsView extends React.Component {
       )
     }
 
-    const connections = this.state.connections.map(_ => {
+    const endpoints = this.state.endpoints.map(_ => {
       return <li>{ label(_.nickname) }{ label(_.url) }{ label(_.user) }</li>
     })
 
     return (
       <div className="SettingsView">
+
+        <h2>Add New Endpoint:</h2>
 
         <form>
           <label className="quarter-width">
@@ -58,7 +60,9 @@ export default class SettingsView extends React.Component {
           </label>
         </form>
 
-        <ul>{ connections }</ul>
+        <h2>My Endpoints ({ endpoints.length }):</h2>
+
+        <ul>{ endpoints }</ul>
 
       </div>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { giver } from './App'
 
 export default class FavList extends React.Component {
 
@@ -6,9 +7,17 @@ export default class FavList extends React.Component {
     super(_)
   }
 
+  componentDidMount() {
+
+    giver
+      .askFor('orgs')
+      .then(orgs => this.setState({ orgs: orgs }))
+
+  }
+
   render() {
 
-    if (!this.props.user || !this.props.orgs) {
+    if (!this.props.user || !this.state.orgs) {
       return <div />
     }
 

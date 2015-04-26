@@ -13,9 +13,9 @@ export default class SettingsNav extends React.Component {
   componentDidMount() {
 
     giver
-      .askFor('connections')
-      .then(connections => {
-        this.setState({ connections: connections })
+      .askFor('endpoints')
+      .then(endpoints => {
+        this.setState({ endpoints: endpoints })
       })
 
   }
@@ -41,9 +41,9 @@ export default class SettingsNav extends React.Component {
           l6.679-6.68C80.225,70.366,80.225,67.79,78.636,66.202z"/>
       </svg>
 
-    const endpoints = (this.state.connections || []).map (_ => {
+    const endpoints = (this.state.endpoints || []).map (_ => {
       return (
-        <li><Link to="settings/endpoints">{ db }{ _.nickname }</Link></li>
+        <li><Link to="endpoint" params={{ nickname: _.nickname }}>{ db }{ _.nickname }</Link></li>
       )
     })
 
@@ -52,7 +52,7 @@ export default class SettingsNav extends React.Component {
         <h2>Settings</h2>
         <ul>
           <li>
-            <Link to="settings/endpoints">{ connection }Endpoints <tiny-badge>{ (this.state.connections || []).length }</tiny-badge></Link>
+            <Link to="/settings/endpoints">{ connection }My Endpoints <tiny-badge>{ (this.state.endpoints || []).length }</tiny-badge></Link>
             <ul>
               { endpoints }
             </ul>
