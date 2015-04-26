@@ -1,6 +1,7 @@
 import $ from 'jQuery'
 import React from 'react'
 import { giver } from './App'
+import { SuccessNotification, DangerNotification } from './Notification'
 
 const KEYS = {
   ENTER: 13
@@ -37,9 +38,15 @@ export default class SettingsView extends React.Component {
 
   onKeyPress (event: SyntheticKeyboardEvent) {
     if (event.which == KEYS.ENTER) {
+      event.preventDefault()
       this
         .save()
         .then(() => {
+
+          new SuccessNotification(
+            <span>Successfully created new endpoint "<strong>{ this.state.form.nickname || this.state.form.url }</strong>"</span>
+          )
+
           this.clearForm()
           this.getEndpoints()
         })
@@ -64,6 +71,16 @@ export default class SettingsView extends React.Component {
       return new Promise((_, reject) => reject(new Error('Attempted to save new endpoint without filling in required fields')))
     }
 
+    // if the user didn't enter a nickname,
+    // use the url as the nickname
+    if (this.state.form.url && !this.state.form.nickname) {
+      this.state.form.nickname = this.state.form.url
+    }
+
+    if (this.isDuplicate(this.state.form.nickname)) {
+      return new Promise((_, reject) => reject(new Error(`An endpoint with the nickname ${ this.state.form.nickname } already exists! Nicknames must be unique`)))
+    }
+
     return new Promise((resolve, reject) => {
       $
       .ajax({
@@ -79,6 +96,12 @@ export default class SettingsView extends React.Component {
       .fail(reject)
     })
 
+  }
+
+  isDuplicate (nickname: string): boolean {
+    return this.state.endpoints.some(
+      _ => _.nickname == nickname
+    )
   }
 
   formIsCompleted(): boolean {
@@ -100,7 +123,7 @@ export default class SettingsView extends React.Component {
     }
 
     const endpoints = this.state.endpoints.map(_ => {
-      return <li>{ label(_.nickname) }{ label(_.url) }{ label(_.user) }</li>
+      return <li key={ _.nickname }>{ label(_.nickname) }{ label(_.url) }{ label(_.user) }</li>
     })
 
     const button = this.formIsCompleted()
@@ -118,7 +141,7 @@ export default class SettingsView extends React.Component {
             <input
               type="text"
               placeholder="Prod DB"
-              value={this.state.form.nickname}
+              value={this.state.form.nickname || this.state.form.url}
               onChange={this.handleChange('nickname')} />
           </label>
           <label className="quarter-width">
@@ -126,6 +149,7 @@ export default class SettingsView extends React.Component {
             <input
               type="url"
               placeholder="mysql://dev-db.cow.com:3306"
+              required
               value={this.state.form.url}
               onChange={this.handleChange('url')} />
           </label>

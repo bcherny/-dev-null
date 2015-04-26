@@ -42,6 +42,7 @@ input[type="url"] {
 @import "./GithubLogin";
 @import "./MainView";
 @import "./Modal";
+@import "./Notification";
 @import "./Querybar";
 @import "./SettingsNav";
 @import "./SettingsView";
