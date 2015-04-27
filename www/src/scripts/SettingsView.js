@@ -42,18 +42,35 @@ export default class SettingsView extends React.Component {
       this
         .save()
         .then(() => {
-
-          new SuccessNotification(
+          this.resetWithMessage(
             <span>Successfully created new endpoint "<strong>{ this.state.form.nickname || this.state.form.url }</strong>"</span>
           )
-
-          this.clearForm()
-          this.getEndpoints()
         })
         .catch(err => console.error(err))
     }
   }
 
+  onDelete (nickname: string) {
+    return () => {
+      this
+        .delete(nickname)
+        .then(() => this.resetWithMessage(<span>Successfully deleted endpoint "<strong>{ nickname }</strong>"</span>))
+        .catch(() => new DangerNotification(<span>Error deleting endpoint "<strong>{ nickname }</strong>"</span>))
+    }
+  }
+
+  onEdit (nickname: string) {
+    return () => {
+
+    }
+  }
+
+  resetWithMessage (message: String) {
+    new SuccessNotification(message)
+    this.clearForm()
+    this.getEndpoints()
+  }
+ 
   clearForm() {
 
     this.state.form = {
@@ -98,6 +115,22 @@ export default class SettingsView extends React.Component {
 
   }
 
+  delete (nickname: string) {
+    return new Promise((resolve, reject) => {
+      $ .ajax({
+          method: 'DELETE',
+          url: `/user/endpoints/${ nickname }`
+        })
+        .done(resolve)
+        .fail(reject)
+    })
+  }
+
+  edit (nickname: string) {
+    return (event: SyntheticEvent) => {
+    }
+  }
+
   isDuplicate (nickname: string): boolean {
     return this.state.endpoints.some(
       _ => _.nickname == nickname
@@ -123,7 +156,19 @@ export default class SettingsView extends React.Component {
     }
 
     const endpoints = this.state.endpoints.map(_ => {
-      return <li key={ _.nickname }>{ label(_.nickname) }{ label(_.url) }{ label(_.user) }</li>
+      return (
+        <li key={ _.nickname }>
+          { label(_.nickname) }
+          { label(_.url) }
+          { label(_.user) }
+          <label className="quarter-width">
+            <ul className="endpoint-list-menu">
+              <li><a onClick={ this.onEdit(_.nickname) } className="edit-button">Edit</a></li>
+              <li><a onDoubleClick={ this.onDelete(_.nickname) } className="delete-button" title="Double click to delete">Delete</a></li>
+            </ul>
+          </label>
+        </li>
+      )
     })
 
     const button = this.formIsCompleted()

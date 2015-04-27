@@ -51,21 +51,33 @@ let app = express()
     }
   })
 
-  // mock endpoints
-  // TODO: send real endpoints
+  // stub
+  // TODO: implement
   .get('/user/endpoints', (_, res) => res.send([
     {
       "nickname": "My database",
       "url": "mysql://dev-db.cow.com:3306",
       "user": "admin"
+    },
+    {
+      "nickname": "My other database",
+      "url": "mysql://prod-db.cow.com:2236",
+      "user": "moo"
     }
   ]))
 
-  // endpoint create stub
+  // stub
+  // TODO: implement
   .post('/user/endpoints', (req, res) => {
-    console.log(req)
     res.json(req.body)
   })
+
+  // stub
+  // TODO: implement
+  .delete('/user/endpoints/:nickname', (req, res) => {
+    res.send(200)
+  })
+
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
     if (req.user) {
