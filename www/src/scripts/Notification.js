@@ -1,25 +1,35 @@
 import React from 'react'
-import addons from 'react/addons'
 
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
-
-let id = 0
+const SHOW_TIME = 2000 // how long to show a notification for, in ms
 
 export default class Notification {
 
   constructor (content, className) {
 
+    let timeout = null
+
     let div = document.createElement('div')
     document.body.appendChild(div)
 
-    let onClose = () => React.unmountComponentAtNode(div)
+    let close = () => {
+      stopTimer()
+      React.unmountComponentAtNode(div)
+    }
+
+    let startTimer = () => timeout = setTimeout(close, SHOW_TIME)
+    let stopTimer = () => {
+      clearTimeout(timeout)
+      timeout = null
+    }
 
     React.render(
-      <NotificationElement className={ className } id={ id++ } onClose={ onClose }>
+      <NotificationElement className={ className } onClose={ close } onMouseOver={ stopTimer } onMouseOut={ startTimer }>
         { content }
       </NotificationElement>,
       div
     )
+
+    startTimer()
 
   }
 
@@ -60,12 +70,14 @@ class NotificationElement extends React.Component {
     const className = `Notification ${ this.props.className }`
 
     return (
-      <ReactCSSTransitionGroup transitionName="slideIn">
-        <div className={ className } key={ this.props.id }>
-          { this.props.children }
-          <a className="close-button" onClick={ this.props.onClose }>&times;</a>
-        </div>
-      </ReactCSSTransitionGroup>
+      <div
+        className={ className }
+        onMouseOver={ this.props.onMouseOver }
+        onMouseOut={ this.props.onMouseOut }
+      >
+        { this.props.children }
+        <a className="close-button" onClick={ this.props.onClose }>&times;</a>
+      </div>
     )
 
   }
