@@ -1,4 +1,6 @@
 .Notification {
+  border: solid #fff;
+  border-width: 0 1px 1px;
   margin: auto;
   padding: 15px 30px 15px 15px;
   position: fixed;
@@ -11,12 +13,12 @@
 
 .Notification.success {
   background: #CAF9CC; /* #A6EF89 */
-  border: solid #fff;
-  border-width: 0 1px 1px;
 }
 .Notification.info {}
 .Notification.warning {}
-.Notification.danger {}
+.Notification.danger {
+  background: #F9CACA;
+}
 
 .Notification .close-button {
   display: block;

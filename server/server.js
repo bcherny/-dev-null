@@ -68,15 +68,15 @@ let app = express()
 
   // stub
   // TODO: implement
-  .post('/user/endpoints', (req, res) => {
-    res.json(req.body)
-  })
+  .post('/user/endpoints', (req, res) => res.json(req.body))
 
   // stub
   // TODO: implement
-  .delete('/user/endpoints/:nickname', (req, res) => {
-    res.send(200)
-  })
+  .put('/user/endpoints/:nickname', (req, res) => res.json(req.body))
+
+  // stub
+  // TODO: implement
+  .delete('/user/endpoints/:nickname', (req, res) => res.send(200))
 
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport

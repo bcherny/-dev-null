@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SHOW_TIME = 2000 // how long to show a notification for, in ms
+const SHOW_TIME = 20000 // how long to show a notification for, in ms
 
 export default class Notification {
 

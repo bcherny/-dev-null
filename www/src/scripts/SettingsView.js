@@ -1,5 +1,5 @@
 import $ from 'jQuery'
-import { find } from 'lodash'
+import { assign, find, omit } from 'lodash'
 import React from 'react'
 import { giver } from './App'
 import { SuccessNotification, DangerNotification } from './Notification'
@@ -28,7 +28,7 @@ export default class SettingsView extends React.Component {
       })
   }
 
-  handleChange (fieldName: string) {
+  onChange (fieldName: string) {
     return event => {
       // setting state directly because React lacks
       // support for patch updating objects
@@ -55,8 +55,11 @@ export default class SettingsView extends React.Component {
     return () => {
       this
         .delete(nickname)
-        .then(() => this.resetWithMessage(<span>Successfully deleted endpoint "<strong>{ nickname }</strong>"</span>))
-        .catch(() => new DangerNotification(<span>Error deleting endpoint "<strong>{ nickname }</strong>"</span>))
+        .then(_ => this.resetWithMessage(<span>Successfully deleted endpoint "<strong>{ nickname }</strong>"</span>))
+        .catch(_ => {
+          console.error(`Error deleting endpoint "${ nickname }"`)
+          new DangerNotification(<span>Error deleting endpoint "<strong>{ nickname }</strong>"</span>)
+        })
     }
   }
 
@@ -64,8 +67,42 @@ export default class SettingsView extends React.Component {
     return () => {
       let endpoint = find(this.state.endpoints, { nickname: nickname })
       endpoint.isEnabled = !endpoint.isEnabled
+      
+      if (endpoint.isEnabled) {
+        this.state.editing = endpoint
+      }
+
       this.forceUpdate()
       // TODO: focus on the 1st <input>
+    }
+  }
+
+  onEditChange (fieldName: string) {
+    return event => {
+      // setting state directly because React lacks
+      // support for patch updating objects
+      this.state.editing[fieldName] = event.target.value
+      this.forceUpdate()
+    }
+  }
+
+  onEditKeyPress (event: SyntheticKeyboardEvent) {
+    if (event.which == KEYS.ENTER) {
+      event.preventDefault()
+
+      const endpoint = this.state.editing
+
+      this
+        .edit(omit(endpoint, 'isEnabled'))
+        .then(_ => {
+          this.state.endpoints.map(_ => assign(_, { isEnabled: false }))
+          this.state.editing = null
+          this.resetWithMessage(<span>Successfully saved endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
+        })
+        .catch(error => {
+          console.error(`Error editing endpoint "${ endpoint.nickname }"`, error)
+          new DangerNotification(<span>Error saving endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
+        })
     }
   }
 
@@ -83,6 +120,8 @@ export default class SettingsView extends React.Component {
       username: null,
       password: null
     }
+
+    this.forceUpdate()
 
   }
 
@@ -103,18 +142,17 @@ export default class SettingsView extends React.Component {
     }
 
     return new Promise((resolve, reject) => {
-      $
-      .ajax({
-        data: JSON.stringify(this.state.form),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        processData: false,
-        url: '/user/endpoints'
-      })
-      .done(resolve)
-      .fail(reject)
+      $ .ajax({
+          data: JSON.stringify(this.state.form),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          processData: false,
+          url: '/user/endpoints'
+        })
+        .done(resolve)
+        .fail(reject)
     })
 
   }
@@ -130,9 +168,20 @@ export default class SettingsView extends React.Component {
     })
   }
 
-  edit (nickname: string) {
-    return (event: SyntheticEvent) => {
-    }
+  edit (endpoint) {
+    return new Promise((resolve, reject) => {
+      $ .ajax({
+          data: JSON.stringify(endpoint),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'PUT',
+          processData: false,
+          url: `/user/endpoints/${ endpoint.nickname }`
+        })
+        .done(resolve)
+        .fail(reject)
+    })
   }
 
   isDuplicate (nickname: string): boolean {
@@ -151,10 +200,15 @@ export default class SettingsView extends React.Component {
       return <div>Getting endpoints...</div>
     }
 
-    const label = (value, isEnabled) => {
+    const label = (name: string, value: string, isEnabled: boolean) => {
       return (
         <label className="quarter-width">
-          <input type="text" value={ value } disabled={ !isEnabled } />
+          <input
+            type="text"
+            value={ value }
+            disabled={ !isEnabled }
+            onChange={ this.onEditChange(name) }
+            onKeyPress={ this.onEditKeyPress.bind(this) } />
         </label>
       )
     }
@@ -169,9 +223,9 @@ export default class SettingsView extends React.Component {
 
       return (
         <li key={ _.nickname }>
-          { label(_.nickname, _.isEnabled) }
-          { label(_.url, _.isEnabled) }
-          { label(_.user, _.isEnabled) }
+          { label('nickname', _.nickname, _.isEnabled) }
+          { label('url', _.url, _.isEnabled) }
+          { label('user', _.user, _.isEnabled) }
           <label className="quarter-width">
             <ul className="endpoint-list-menu">
               <li><a onClick={ this.onEdit(_.nickname) } className={ editClass }>Edit</a></li>
@@ -198,7 +252,7 @@ export default class SettingsView extends React.Component {
               type="text"
               placeholder="Prod DB"
               value={this.state.form.nickname || this.state.form.url}
-              onChange={this.handleChange('nickname')} />
+              onChange={this.onChange('nickname')} />
           </label>
           <label className="quarter-width">
             URL
@@ -207,21 +261,21 @@ export default class SettingsView extends React.Component {
               placeholder="mysql://dev-db.cow.com:3306"
               required
               value={this.state.form.url}
-              onChange={this.handleChange('url')} />
+              onChange={this.onChange('url')} />
           </label>
           <label className="quarter-width">
             Username
             <input
               type="text"
               value={this.state.form.username}
-              onChange={this.handleChange('username')} />
+              onChange={this.onChange('username')} />
           </label>
           <label className="quarter-width">
             Password
             <input
               type="password"
               value={this.state.form.password}
-              onChange={this.handleChange('password')} />
+              onChange={this.onChange('password')} />
           </label>
 
           { button }
