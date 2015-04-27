@@ -1,11 +1,12 @@
 import $ from 'jQuery'
-import { assign, find, omit } from 'lodash'
+import { assign, cloneDeep, find, omit } from 'lodash'
 import React from 'react'
 import { giver } from './App'
 import { SuccessNotification, DangerNotification } from './Notification'
 
 const KEYS = {
-  ENTER: 13
+  ENTER: 13,
+  ESC: 27
 }
 
 export default class SettingsView extends React.Component {
@@ -70,6 +71,7 @@ export default class SettingsView extends React.Component {
       
       if (endpoint.isEnabled) {
         this.state.editing = endpoint
+        this.state.pristineEditing = cloneDeep(endpoint)
       }
 
       this.forceUpdate()
@@ -87,23 +89,45 @@ export default class SettingsView extends React.Component {
   }
 
   onEditKeyPress (event: SyntheticKeyboardEvent) {
-    if (event.which == KEYS.ENTER) {
-      event.preventDefault()
 
-      const endpoint = this.state.editing
+    switch (event.which) {
 
-      this
-        .edit(omit(endpoint, 'isEnabled'))
-        .then(_ => {
-          this.state.endpoints.map(_ => assign(_, { isEnabled: false }))
-          this.state.editing = null
-          this.resetWithMessage(<span>Successfully saved endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
-        })
-        .catch(error => {
-          console.error(`Error editing endpoint "${ endpoint.nickname }"`, error)
-          new DangerNotification(<span>Error saving endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
-        })
+      case KEYS.ENTER:
+        event.preventDefault()
+
+        const endpoint = this.state.editing
+
+        this
+          .edit(omit(endpoint, 'isEnabled'))
+          .then(_ => {
+            this.stopEditing()
+            this.resetWithMessage(<span>Successfully saved endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
+          })
+          .catch(error => {
+            console.error(`Error editing endpoint "${ endpoint.nickname }"`, error)
+            new DangerNotification(<span>Error saving endpoint "<strong>{ endpoint.nickname }</strong>"</span>)
+          })
+
+        break
+
+      case KEYS.ESC:
+        this.abortEditing()
+        break
+
     }
+  }
+
+  abortEditing() {
+    let index = this.state.endpoints.indexOf(this.state.editing)
+    this.state.endpoints[index] = this.state.pristineEditing
+    this.stopEditing()
+    this.forceUpdate()
+  }
+
+  stopEditing() {
+    this.state.endpoints.map(_ => assign(_, { isEnabled: false }))
+    this.state.editing = null
+    this.state.pristineEditing = null
   }
 
   resetWithMessage (message: String) {
@@ -208,7 +232,7 @@ export default class SettingsView extends React.Component {
             value={ value }
             disabled={ !isEnabled }
             onChange={ this.onEditChange(name) }
-            onKeyPress={ this.onEditKeyPress.bind(this) } />
+            onKeyUp={ this.onEditKeyPress.bind(this) } />
         </label>
       )
     }
