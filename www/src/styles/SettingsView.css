@@ -38,8 +38,8 @@
   list-style: none;
 }
 
-.SettingsView li input {
-  border: 0;
+.SettingsView li input:disabled {
+  border-color: #fff;
 }
 
 /* menu */
@@ -64,6 +64,14 @@
 
 .SettingsView .delete-button:hover {
   color: red;
+}
+
+.SettingsView li li a.active {
+  color: #666;
+  font-weight: bold;
+}
+.SettingsView li li a.active:after {
+  content: "ing";
 }
 
 /* "press enter" */

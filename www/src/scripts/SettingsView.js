@@ -1,4 +1,5 @@
 import $ from 'jQuery'
+import { find } from 'lodash'
 import React from 'react'
 import { giver } from './App'
 import { SuccessNotification, DangerNotification } from './Notification'
@@ -61,7 +62,10 @@ export default class SettingsView extends React.Component {
 
   onEdit (nickname: string) {
     return () => {
-
+      let endpoint = find(this.state.endpoints, { nickname: nickname })
+      endpoint.isEnabled = !endpoint.isEnabled
+      this.forceUpdate()
+      // TODO: focus on the 1st <input>
     }
   }
 
@@ -147,23 +151,30 @@ export default class SettingsView extends React.Component {
       return <div>Getting endpoints...</div>
     }
 
-    const label = (value) => {
+    const label = (value, isEnabled) => {
       return (
         <label className="quarter-width">
-          <input type="text" value={ value } disabled />
+          <input type="text" value={ value } disabled={ !isEnabled } />
         </label>
       )
     }
 
     const endpoints = this.state.endpoints.map(_ => {
+
+      let editClass = 'edit-button ' + (
+        _.isEnabled
+          ? 'active'
+          : ''
+      )
+
       return (
         <li key={ _.nickname }>
-          { label(_.nickname) }
-          { label(_.url) }
-          { label(_.user) }
+          { label(_.nickname, _.isEnabled) }
+          { label(_.url, _.isEnabled) }
+          { label(_.user, _.isEnabled) }
           <label className="quarter-width">
             <ul className="endpoint-list-menu">
-              <li><a onClick={ this.onEdit(_.nickname) } className="edit-button">Edit</a></li>
+              <li><a onClick={ this.onEdit(_.nickname) } className={ editClass }>Edit</a></li>
               <li><a onDoubleClick={ this.onDelete(_.nickname) } className="delete-button" title="Double click to delete">Delete</a></li>
             </ul>
           </label>
