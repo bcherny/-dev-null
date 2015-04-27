@@ -1,3 +1,5 @@
+// TODO: refactor into form, list, and list elements
+
 import $ from 'jQuery'
 import { assign, cloneDeep, find, omit } from 'lodash'
 import React from 'react'
@@ -245,6 +247,7 @@ export default class SettingsView extends React.Component {
           : ''
       )
 
+      // TODO: show password input when editing
       return (
         <li key={ _.nickname }>
           { label('nickname', _.nickname, _.isEnabled) }

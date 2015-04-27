@@ -24,7 +24,7 @@ export default class FavList extends React.Component {
     // "_json" means something to the react transpiler :|
     const items = [
       { avatar_url: this.props.user['_json'].avatar_url, login: 'Mine' },
-      { avatar: '', login: 'Public' }
+      { avatar_url: '', login: 'Public' }
     ]
       .concat(this.props.orgs || [])
       .map(_ => <li><a><img src={ _.avatar_url } />{ _.login }</a></li>)
