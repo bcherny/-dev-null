@@ -1,5 +1,7 @@
 [![Circle CI](https://circleci.com/gh/pathikrit/-dev-null/tree/master.svg?style=svg)](https://circleci.com/gh/pathikrit/-dev-null/tree/master)
 
+![](http://i.imgur.com/EauFd7M.png)
+
 # ack.mo (aka. the working title)
 
 ## building the frontend
