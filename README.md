@@ -7,7 +7,7 @@
 ```sh
 cd www
 npm i
-npm run-script build
+npm run build
 ```
 
 ## hacking on the frontend
@@ -15,7 +15,7 @@ npm run-script build
 ```sh
 cd www
 npm i
-npm run-script watch
+npm run watch
 ```
 
 ## starting the server

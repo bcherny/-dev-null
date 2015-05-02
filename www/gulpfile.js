@@ -21,7 +21,7 @@ gulp.task('images', function () {
 })
 
 // watchify
-gulp.task('scripts', bundle)
+gulp.task('watchScripts', bundle)
 var bundler = watchify(browserify('./src/scripts/main.js', watchify.args))
   .transform('babelify')
   .on('update', bundle)
@@ -35,6 +35,18 @@ function bundle () {
     .pipe(gulp.dest('dist/'))
 
 }
+
+gulp.task('scripts', function () {
+
+  return browserify('./src/scripts/main.js')
+    .transform('babelify')
+    .bundle()
+    .on('error', browserifyError)
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('dist/'))
+
+})
 
 gulp.task('styles', function () {
 
@@ -59,7 +71,7 @@ gulp.task('default', ['images', 'scripts', 'styles'])
 gulp.task('watch', function () {
 
   gulp.watch('src/images/*', ['images'])
-  gulp.watch('src/scripts/*.js', ['scripts'])
+  gulp.watch('src/scripts/*.js', ['watchScripts'])
   gulp.watch('src/styles/*.css', ['styles'])
 
 })
