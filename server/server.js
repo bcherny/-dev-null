@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import { DataSource } from 'loopback-datasource-juggler'
 import express from 'express'
 import https from 'https'
-import levelup from 'level'
+import leveldb from 'level'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
@@ -27,6 +27,8 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj)
 });
+
+let db = leveldb('./test_db')
 
 // configure express
 let app = express()
@@ -77,6 +79,21 @@ let app = express()
   // stub
   // TODO: implement
   .delete('/user/endpoints/:nickname', (req, res) => res.send(200))
+
+  .get('/read/:stuff', function(req, res) {
+    db.get(req.params.stuff, function(err, value) {
+      if (err) {
+        res.status(404).send(err).end()
+      } else {
+        res.status(200).send(value).end()
+      }
+    })
+  })
+
+  .get('/write/:stuff/:things', function(req, res) {
+    db.put(req.params.stuff, req.params.things)
+    res.send(200)
+  })
 
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
