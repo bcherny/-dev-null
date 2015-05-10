@@ -39,6 +39,8 @@ input[type="url"] {
   padding: 5px;
 }
 
+@import "codemirror/lib/codemirror";
+@import "codemirror/theme/monokai";
 @import "./GithubLogin";
 @import "./MainView";
 @import "./Modal";
