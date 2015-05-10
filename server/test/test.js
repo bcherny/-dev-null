@@ -7,15 +7,15 @@ describe('GET /eval', function() {
     supertest(app)
       .post('/eval')
       .send({
-        "type": "db",
-        "flavor": "mysql",
-        "settings": {
-          "host": 'localhost',
-          "port": 3306,
-          "database": 'circle_test',
-          "username": 'ubuntu'
+        type: 'db',
+        flavor: 'mysql',
+        settings: {
+          host: 'localhost',
+          port: 3306,
+          database: 'circle_test',
+          username: 'ubuntu'
         },
-        "query": 'SELECT * FROM users'
+        query: 'SELECT * FROM users'
       })
       .expect(
         [
