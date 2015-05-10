@@ -45,6 +45,7 @@ input[type="url"] {
 @import "./MainView";
 @import "./Modal";
 @import "./Notification";
+@import "./OrgsSelector";
 @import "./Querybar";
 @import "./SettingsNav";
 @import "./SettingsView";
