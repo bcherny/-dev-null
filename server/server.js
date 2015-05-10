@@ -8,6 +8,7 @@ import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
 
+//TODO: use http-status-codes
 // configure passport @see https://github.com/jaredhanson/passport-github/blob/master/examples/login/app.js
 passport.use(
   new Strategy({
@@ -48,7 +49,7 @@ let app = express()
   )
 
   .get('/user', function (req, res) {
-    if (req.user) {
+    if (req.user) {         // instead of if (req.user) else pattern - use middleware to detect and load user from db
       res.status(200).send(req.user)
     } else {
       res.status(401).send()
@@ -57,21 +58,29 @@ let app = express()
 
   /******************* Workspace APIs ******************/
   .get('/workspaces/:org', function(req, res) {
-    db.get('/orgs/' + req.params.org, function(err, value) {
-      if (err) {
-        res.status(404).send(err).end()
-      } else {
-        res.status(200).send(value).end()
-      }
-    })
+    if (req.user) {
+      db.get('/orgs/' + req.params.org, function(err, value) {
+        if (err) {
+          res.status(404).send(err).end()
+        } else {
+          res.status(200).send(value).end()
+        }
+      })
+    } else {
+      res.status(401).send()
+    }
   })
 
   .put('/workspaces/:org', function(req, res) {
     db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
-      if (err) {
-        res.status(404).send(err).end()
+      if (req.user) {
+        if (err) {
+          res.status(404).send(err).end()
+        } else {
+          res.status(200).send(value).end()
+        }
       } else {
-        res.status(200).send(value).end()
+        res.status(401).send()
       }
     })
   })
