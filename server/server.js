@@ -38,48 +38,24 @@ let app = express()
   .use(express.static(__dirname + '/../www/'))
 
   /******************* Auth APIs ******************/
-  .get('/login', passport.authenticate('github'))
+  .get('/user', passport.authenticate('github'))
+
   .get('/login/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
       // Successful authentication, redirect home.
       res.redirect('/')
-    })
-  .get('/user', function (req, res) {
-    if (req.user) {
-      res.status(200).send(req.user)
-    } else {
-      res.status(401).send()
     }
-  })
+  )
 
   /******************* Org APIs ******************/
-  // stub
-  // TODO: implement
-  .get('/user/endpoints', (_, res) => res.send([
-    {
-      "nickname": "My database",
-      "url": "mysql://dev-db.cow.com:3306",
-      "user": "admin"
-    },
-    {
-      "nickname": "My other database",
-      "url": "mysql://prod-db.cow.com:2236",
-      "user": "moo"
-    }
-  ]))
+  .get('/orgs/:org', function(req, res) {
+    res.status(405).send()
+  })
 
-  // stub
-  // TODO: implement
-  .post('/user/endpoints', (req, res) => res.json(req.body))
-
-  // stub
-  // TODO: implement
-  .put('/user/endpoints/:nickname', (req, res) => res.json(req.body))
-
-  // stub
-  // TODO: implement
-  .delete('/user/endpoints/:nickname', (req, res) => res.send(200))
+  .post('/orgs/:org', function(res, res) {
+    res.status(405).send()
+  })
 
   .get('/user/orgs', function (req, res) {
     // TODO: this request should be authenticated with passport
