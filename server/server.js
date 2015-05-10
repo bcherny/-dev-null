@@ -28,7 +28,7 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj)
 });
 
-let db = leveldb('./test_db')
+let db = leveldb('./test_db');
 
 // configure express
 let app = express()
@@ -40,14 +40,11 @@ let app = express()
   .use(express.static(__dirname + '/../www/'))
 
   /******************* Auth APIs ******************/
-  .get('/user', passport.authenticate('github'))
+  .get('/auth/github', passport.authenticate('github'))
 
-  .get('/login/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/')
-    }
+  .get('/auth/github/callback',
+    passport.authenticate('github', {failureRedirect: '/'}),
+    (_, res) => res.redirect('/')
   )
 
   /******************* Org APIs ******************/
