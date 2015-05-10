@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import { DataSource } from 'loopback-datasource-juggler'
 import express from 'express'
 import https from 'https'
-import levelup from 'level'
+import leveldb from 'level'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
@@ -28,6 +28,8 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj)
 });
 
+let db = leveldb('./test_db')
+
 // configure express
 let app = express()
   .use(bodyParser.json())
@@ -50,15 +52,27 @@ let app = express()
 
   /******************* Org APIs ******************/
   .get('/orgs/:org', function(req, res) {
-    res.status(405).send()
+    db.get('/orgs/' + req.params.org, function(err, value) {
+      if (err) {
+        res.status(404).send(err).end()
+      } else {
+        res.status(200).send(value).end()
+      }
+    })
   })
 
-  .post('/orgs/:org', function(res, res) {
-    res.status(405).send()
+  .post('/orgs/:org', function(req, res) {
+    db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
+      if (err) {
+        res.status(404).send(err).end()
+      } else {
+        res.status(200).send(value).end()
+      }
+    })
   })
 
+  // TODO: this request should be authenticated with passport
   .get('/user/orgs', function (req, res) {
-    // TODO: this request should be authenticated with passport
     if (req.user) {
       res.header('Content-Type', 'application/json');
       https.get({
@@ -77,8 +91,8 @@ let app = express()
 
   /******************* Eval APIs ******************/
   .post('/eval/db/:env', function(req, res) {
-    let db = new DataSource(req.params.env, req.body.settings).connector;
-    db.query(req.body.query, function(err, result) {
+    let tempDb = new DataSource(req.params.env, req.body.settings).connector;
+    tempDb.query(req.body.query, function(err, result) {
       if (err) {
         res.status(403).send(err).end()
       } else {
