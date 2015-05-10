@@ -47,6 +47,14 @@ let app = express()
     (_, res) => res.redirect('/')
   )
 
+  .get('/user', function (req, res) {
+    if (req.user) {
+      res.status(200).send(req.user)
+    } else {
+      res.status(401).send()
+    }
+  })
+
   /******************* Org APIs ******************/
   .get('/orgs/:org', function(req, res) {
     db.get('/orgs/' + req.params.org, function(err, value) {
@@ -87,15 +95,20 @@ let app = express()
   })
 
   /******************* Eval APIs ******************/
-  .post('/eval/db/:env', function(req, res) {
-    let tempDb = new DataSource(req.params.env, req.body.settings).connector;
-    tempDb.query(req.body.query, function(err, result) {
-      if (err) {
-        res.status(403).send(err).end()
-      } else {
-        res.status(200).send(result).end()
-      }
-    });
+  .post('/eval', function(req, res) {
+    if (req.body.type == 'db') {
+      let tempDb = new DataSource(req.params.env, req.body.settings).connector;
+      tempDb.query(req.body.query, function(err, result) {
+        if (err) {
+          res.status(403).send(err).end()
+        } else {
+          res.status(200).send(result).end()
+        }
+      });
+
+    } else {
+      res.status(405).send()
+    }
   });
 
 export default app;
