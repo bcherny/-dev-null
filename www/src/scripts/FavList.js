@@ -10,8 +10,8 @@ export default class FavList extends React.Component {
   componentDidMount() {
 
     giver
-      .askFor('user')
-      .then(user => this.setState({ orgs: user.orgs }))
+      .askFor('orgs')
+      .then(orgs => this.setState({ orgs: orgs }))
 
   }
 

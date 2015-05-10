@@ -17,7 +17,9 @@ export default class QueryBar extends React.Component {
     request
       .post('/eval')
       .send({
-        query: query
+        query: query,
+        type: 'db',
+        flavor: 'mysql'
       })
       .end((err, res) => {
         if (err) throw err

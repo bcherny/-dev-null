@@ -36,28 +36,31 @@ export default class App extends React.Component {
     })
   }
 
-  // getOrgs(): Promise {
-  //   return new Promise((resolve, reject) => {
-  //     $.get('/user/orgs')
-  //       .done(resolve)
-  //       .fail(reject)
-  //   })
-  // }
+  getOrgs(): Promise {
+    return new Promise((resolve, reject) => {
+      $.get('/orgs')
+        .done(resolve)
+        .fail(reject)
+    })
+  }
 
   componentDidMount() {
 
     giver
+      .provide('orgs', this.getOrgs())
       .provide('user', this.getUser())
 
     this
       .setState({ isLoggingIn: true })
 
-    giver
-      .askFor('user')
-      .then((user) => {
+    Promise.all([
+      giver.askFor('orgs'),
+      giver.askFor('user')
+    ])
+      .then(([orgs, user]) => {
         this.setState({
           isLoggingIn: false,
-          orgs: user.orgs,
+          orgs: orgs,
           user: user
         })
         giver.provide('endpoints', this.getEndpoints(orgs[0].id))
