@@ -17,7 +17,7 @@ export default class GithubLogin extends React.Component {
   }
 
   login() {
-    window.location.pathname = '/login'
+    window.location.pathname = '/auth/github'
   }
 
   render() {
