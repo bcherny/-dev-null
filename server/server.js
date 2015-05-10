@@ -55,8 +55,8 @@ let app = express()
     }
   })
 
-  /******************* Org APIs ******************/
-  .get('/orgs/:org', function(req, res) {
+  /******************* Workspace APIs ******************/
+  .get('/workspaces/:org', function(req, res) {
     db.get('/orgs/' + req.params.org, function(err, value) {
       if (err) {
         res.status(404).send(err).end()
@@ -66,7 +66,7 @@ let app = express()
     })
   })
 
-  .put('/orgs/:org', function(req, res) {
+  .put('/workspaces/:org', function(req, res) {
     db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
       if (err) {
         res.status(404).send(err).end()
@@ -96,8 +96,8 @@ let app = express()
 
   /******************* Eval APIs ******************/
   .post('/eval', function(req, res) {
-    if (req.body.type == 'db') {
-      let tempDb = new DataSource(req.params.env, req.body.settings).connector;
+    if (req.body.type == 'db' && req.body.flavor) {
+      let tempDb = new DataSource(req.body.flavor, req.body.settings).connector;
       tempDb.query(req.body.query, function(err, result) {
         if (err) {
           res.status(403).send(err).end()
@@ -105,7 +105,6 @@ let app = express()
           res.status(200).send(result).end()
         }
       });
-
     } else {
       res.status(405).send()
     }

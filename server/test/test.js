@@ -5,8 +5,10 @@ import app from '../server.js'
 describe('GET /eval', function() {
   it('Executes MYSQL queries', function(done) {
     supertest(app)
-      .post('/eval/db/mysql')
+      .post('/eval')
       .send({
+        "type": "db",
+        "flavor": "mysql",
         "settings": {
           "host": 'localhost',
           "port": 3306,
@@ -23,4 +25,4 @@ describe('GET /eval', function() {
       )
       .expect(200, done);
   })
-})
+});
