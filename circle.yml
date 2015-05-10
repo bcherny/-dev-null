@@ -1,6 +1,5 @@
 dependencies:
   pre:
-    - npm install -g gulp nodemon mocha
     - cd server; npm i
     - cd www; npm i
 
@@ -9,4 +8,5 @@ test:
     - mysql -u ubuntu circle_test < server/test/prefill.sql
 
   override:
+    - cd www; npm test
     - cd server; npm test

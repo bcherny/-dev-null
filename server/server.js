@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import { DataSource } from 'loopback-datasource-juggler'
 import express from 'express'
 import https from 'https'
-import levelup from 'level'
+import leveldb from 'level'
 import passport from 'passport'
 import session from 'express-session'
 import { Strategy } from 'passport-github'
@@ -28,6 +28,8 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj)
 });
 
+let db = leveldb('./test_db');
+
 // configure express
 let app = express()
   .use(bodyParser.json())
@@ -36,50 +38,38 @@ let app = express()
   .use(passport.initialize())
   .use(passport.session())
   .use(express.static(__dirname + '/../www/'))
-  .get('/login', passport.authenticate('github'))
-  .get('/login/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/')
+
+  /******************* Auth APIs ******************/
+  .get('/auth/github', passport.authenticate('github'))
+
+  .get('/auth/github/callback',
+    passport.authenticate('github', {failureRedirect: '/'}),
+    (_, res) => res.redirect('/')
+  )
+
+  /******************* Org APIs ******************/
+  .get('/orgs/:org', function(req, res) {
+    db.get('/orgs/' + req.params.org, function(err, value) {
+      if (err) {
+        res.status(404).send(err).end()
+      } else {
+        res.status(200).send(value).end()
+      }
     })
-  .get('/user', function (req, res) {
-    if (req.user) {
-      res.status(200).send(req.user)
-    } else {
-      res.status(401).send()
-    }
   })
 
-  // stub
-  // TODO: implement
-  .get('/user/endpoints', (_, res) => res.send([
-    {
-      "nickname": "My database",
-      "url": "mysql://dev-db.cow.com:3306",
-      "user": "admin"
-    },
-    {
-      "nickname": "My other database",
-      "url": "mysql://prod-db.cow.com:2236",
-      "user": "moo"
-    }
-  ]))
+  .put('/orgs/:org', function(req, res) {
+    db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
+      if (err) {
+        res.status(404).send(err).end()
+      } else {
+        res.status(200).send(value).end()
+      }
+    })
+  })
 
-  // stub
-  // TODO: implement
-  .post('/user/endpoints', (req, res) => res.json(req.body))
-
-  // stub
-  // TODO: implement
-  .put('/user/endpoints/:nickname', (req, res) => res.json(req.body))
-
-  // stub
-  // TODO: implement
-  .delete('/user/endpoints/:nickname', (req, res) => res.send(200))
-
-  .get('/user/orgs', function (req, res) {
-    // TODO: this request should be authenticated with passport
+  // TODO: this request should be authenticated with passport
+  .get('/orgs', function (req, res) {
     if (req.user) {
       res.header('Content-Type', 'application/json');
       https.get({
@@ -95,9 +85,11 @@ let app = express()
       res.status(401).send()
     }
   })
+
+  /******************* Eval APIs ******************/
   .post('/eval/db/:env', function(req, res) {
-    let db = new DataSource(req.params.env, req.body.settings).connector;
-    db.query(req.body.query, function(err, result) {
+    let tempDb = new DataSource(req.params.env, req.body.settings).connector;
+    tempDb.query(req.body.query, function(err, result) {
       if (err) {
         res.status(403).send(err).end()
       } else {
