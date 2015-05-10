@@ -36,6 +36,8 @@ let app = express()
   .use(passport.initialize())
   .use(passport.session())
   .use(express.static(__dirname + '/../www/'))
+
+  /******************* Auth APIs ******************/
   .get('/login', passport.authenticate('github'))
   .get('/login/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
@@ -51,6 +53,7 @@ let app = express()
     }
   })
 
+  /******************* Org APIs ******************/
   // stub
   // TODO: implement
   .get('/user/endpoints', (_, res) => res.send([
@@ -95,6 +98,8 @@ let app = express()
       res.status(401).send()
     }
   })
+
+  /******************* Eval APIs ******************/
   .post('/eval/db/:env', function(req, res) {
     let db = new DataSource(req.params.env, req.body.settings).connector;
     db.query(req.body.query, function(err, result) {
