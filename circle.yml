@@ -1,6 +1,5 @@
 dependencies:
   pre:
-    - npm install -g gulp nodemon mocha
     - cd server; npm i
     - cd www; npm i
 
