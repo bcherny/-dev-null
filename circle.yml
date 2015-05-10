@@ -8,4 +8,5 @@ test:
     - mysql -u ubuntu circle_test < server/test/prefill.sql
 
   override:
+    - cd www; npm test
     - cd server; npm test

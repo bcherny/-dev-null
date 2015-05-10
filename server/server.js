@@ -61,7 +61,7 @@ let app = express()
     })
   })
 
-  .post('/orgs/:org', function(req, res) {
+  .put('/orgs/:org', function(req, res) {
     db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
       if (err) {
         res.status(404).send(err).end()
@@ -72,7 +72,7 @@ let app = express()
   })
 
   // TODO: this request should be authenticated with passport
-  .get('/user/orgs', function (req, res) {
+  .get('/orgs', function (req, res) {
     if (req.user) {
       res.header('Content-Type', 'application/json');
       https.get({
