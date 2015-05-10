@@ -20,9 +20,9 @@ export default class App extends React.Component {
     }
   }
 
-  getEndpoints(): Promise {
+  getEndpoints (org: string): Promise {
     return new Promise((resolve, reject) => {
-      $.get('/user/endpoints')
+      $.get(`/orgs/${ org }`)
         .done(resolve)
         .fail(reject)
     })
@@ -36,35 +36,31 @@ export default class App extends React.Component {
     })
   }
 
-  getOrgs(): Promise {
-    return new Promise((resolve, reject) => {
-      $.get('/user/orgs')
-        .done(resolve)
-        .fail(reject)
-    })
-  }
+  // getOrgs(): Promise {
+  //   return new Promise((resolve, reject) => {
+  //     $.get('/user/orgs')
+  //       .done(resolve)
+  //       .fail(reject)
+  //   })
+  // }
 
   componentDidMount() {
 
     giver
-      .provide('endpoints', this.getEndpoints())
-      .provide('orgs', this.getOrgs())
       .provide('user', this.getUser())
 
     this
       .setState({ isLoggingIn: true })
 
-    Promise
-      .all([
-        this.getUser(),
-        this.getOrgs()
-      ])
-      .then(([user, orgs]) => {
+    giver
+      .askFor('user')
+      .then((user) => {
         this.setState({
           isLoggingIn: false,
-          orgs: orgs,
+          orgs: user.orgs,
           user: user
         })
+        giver.provide('endpoints', this.getEndpoints(orgs[0].id))
       })
       .catch(_ => this.setState({ isLoggingIn: false }))
 

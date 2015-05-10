@@ -82,13 +82,14 @@ function error (err, prefix) {
     title: prefix || 'Error'
   })
   util.log(util.colors.red.bold(prefix || 'Error'), err.message)
-  this.end()
 }
 
 function browserifyError (err) {
   error.call(this, err, 'Browserify error')
+  this.emit('end')
 }
 
 function reworkError (err) {
   error.call(this, err, 'Rework error')
+  this.end()
 }
