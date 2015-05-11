@@ -26,3 +26,33 @@ describe('GET /eval', function() {
       .expect(200, done);
   })
 });
+
+/*
+describe('Workspace APIs', function() {
+  it('Saves user data', function(done) {
+    supertest(app)
+      .put('/workspaces/evilcorp')
+      .send({
+        org: {
+          key: 'i am an org'
+        },
+        user: {
+          key: 'i am user1'
+        }
+      })
+      .expect(200, done);
+  });
+
+  it('Retrieves saved user data', function(done) {
+    supertest(app)
+      .get('/workspaces/evilcorp')
+      .expect(
+        [
+          {id: 0, name: 'pathikrit'},
+          {id: 1, name: 'boris'}
+        ]
+      )
+      .expect(200, done);
+  })
+});
+*/

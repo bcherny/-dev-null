@@ -59,11 +59,17 @@ let app = express()
   /******************* Workspace APIs ******************/
   .get('/workspaces/:org', function(req, res) {
     if (req.user) {
-      db.get('/orgs/' + req.params.org, function(err, value) {
+      db.get('/orgs/' + req.params.org, function(err, orgVal) {
         if (err) {
           res.status(404).send(err).end()
         } else {
-          res.status(200).send(value).end()
+          db.get('/orgs/' + req.params.org + '/' + req.user, function(err, userVal) {
+            if (err) {
+              res.status(404).send(err).end()
+            } else {
+              res.status(200).send({org: orgVal, user: userVal}).end()
+            }
+          });
         }
       })
     } else {
@@ -72,20 +78,25 @@ let app = express()
   })
 
   .put('/workspaces/:org', function(req, res) {
-    db.put('/orgs/' + req.params.org, req.body, {valueEncoding: 'json'}, function(err, value) {
-      if (req.user) {
+    if (req.user) {
+      db.put('/orgs/' + req.params.org, req.body.org, {valueEncoding: 'json'}, function(err) {
         if (err) {
-          res.status(404).send(err).end()
+          res.status(403).send(err).end()
         } else {
-          res.status(200).send(value).end()
+          db.put('/orgs/' + req.params.org + '/' + req.user, req.body.user, {valueEncoding: 'json'}, function(err) {
+            if (err) {
+              res.status(403).send(err).end()
+            } else {
+              res.status(200).end()
+            }
+          })
         }
-      } else {
-        res.status(401).send()
-      }
-    })
+      })
+    } else {
+      res.status(401).send()
+    }
   })
 
-  // TODO: this request should be authenticated with passport
   .get('/orgs', function (req, res) {
     if (req.user) {
       res.header('Content-Type', 'application/json');
